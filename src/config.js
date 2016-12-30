@@ -2,7 +2,8 @@
 let config = {
   'appTitle': 'web nv',
   'dropbox': {
-    'token': 'RP1EjVGXf0EAAAAAAAKmQbGVz46psEu_7ZWabRwKlYN1QdOF6qFlzYfX8Ki2CWGb'
+    'appKey': 'wytvhdqaazystov'
+    // 'token': 'RP1EjVGXf0EAAAAAAAKmQbGVz46psEu_7ZWabRwKlYN1QdOF6qFlzYfX8Ki2CWGb'
   }
 }
 

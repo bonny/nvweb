@@ -37,25 +37,27 @@
                 </header>
 
                 <div class="mdl-layout__drawer">
+
                   <span class="mdl-layout-title">{{appTitle}}</span>
+
                   <nav class="mdl-navigation">
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
                   </nav>
+
                 </div>
                 <main class="mdl-layout__content">
                   <div class="page-content">
                     <!-- Your content goes here -->
 
-                    <p>
-                      <!-- use router-link component for navigation. -->
-                      <!-- specify the link by passing the `to` prop. -->
-                      <!-- <router-link> will be rendered as an `<a>` tag by default -->
-                      <router-link to="/bar">Notes</router-link>
-                      <router-link :to="{ name: 'settings' }">Settings</router-link>
-                    </p>
+                    <!-- use router-link component for navigation. -->
+                    <!-- specify the link by passing the `to` prop. -->
+                    <!-- <router-link> will be rendered as an `<a>` tag by default -->
+                    <!-- <router-link to="/bar">Notes</router-link>
+                    <router-link :to="{ name: 'settings' }">Settings</router-link>
+                    <router-link :to="{ name: 'edit' }">Edit note</router-link> -->
 
                     <!-- route outlet -->
                     <!-- component matched by the route will render here -->
