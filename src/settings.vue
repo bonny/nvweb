@@ -10,26 +10,12 @@
 
         <h5>Dropbox connection</h5>
 
-        <p v-if="dropboxAuthToken">
-          <b>Auth token</b>
+        <div v-if="dropboxAuthToken">
+          <div><b>Auth token</b></div>
           <div v-mdl class="mdl-textfield mdl-js-textfield">
             <input v-mdl class="mdl-textfield__input" type="text" :value="dropboxAuthToken" readonly="">
           </div>
-        </p>
-
-        <!--
-
-        <p>
-          Current app key:<br>
-          {{dropboxAppKey}}
-        </p>
-
-        <p>
-            Auth URL:
-            <br>
-            {{dropboxAuthUrl}}
-        </p>
-        -->
+        </div>
 
         <div v-if="dropboxAuthed">
 
@@ -65,12 +51,12 @@
 
           <h5>Notes Folder</h5>
 
-          <p>
-            Folder where notes are stored
+          <div>
+            <div>Folder where notes are stored</div>
             <div v-mdl class="mdl-textfield mdl-js-textfield">
                 <input v-mdl class="mdl-textfield__input" type="text" :value="dropboxNotesFolder" readonly="">
-              </div>
-          </p>
+            </div>
+          </div>
 
           <p v-if="!dropboxFolders">
             <button v-mdl class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" v-on:click.prevent="getDropboxFolders()">

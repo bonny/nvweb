@@ -14,10 +14,10 @@
                     <div class="mdl-layout-spacer"></div>
 
                     <!-- search icon -->
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                    <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
                                 mdl-textfield--floating-label mdl-textfield--align-right">
 
-                      <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+                      <<label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
                         <i class="material-icons">search</i>
                       </label>
 
@@ -25,7 +25,8 @@
                         <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
                       </div>
 
-                    </div><!-- // search -->
+                    </div>-->
+                    <!-- // search -->
 
                     <router-link tag="button" class="mdl-button mdl-js-button mdl-button--icon" :to="{ name: 'settings' }">
                       <i class="material-icons">settings</i>
@@ -36,18 +37,8 @@
                   </div>
                 </header>
 
-                <div class="mdl-layout__drawer">
+                <sidebar :title="appTitle"></sidebar>
 
-                  <span class="mdl-layout-title">{{appTitle}}</span>
-
-                  <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
-                  </nav>
-
-                </div>
                 <main class="mdl-layout__content">
                   <div class="page-content">
                     <!-- Your content goes here -->
@@ -73,6 +64,7 @@
 <script>
 
 import config from './config.js'
+import Sidebar from './components/Sidebar.vue'
 
 export default {
   mounted() {
@@ -83,6 +75,9 @@ export default {
     return {
       appTitle: config.appTitle
     }
+  },
+  components: {
+    Sidebar
   }
 }
 
