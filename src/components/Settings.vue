@@ -25,29 +25,28 @@
             <br>{{dropboxUser.email}}
             <!-- <br><img :src="dropboxUser.profile_photo_url"> -->
           </p>
-          <p>
-            <button v-mdl class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" v-on:click.prevent="disconnectDropbox()">
-              Disconnect Dropbox
-            </button>
-          </p>
 
         </div>
 
-        <div v-if="dropboxAuthed == false">
+        <p v-if="dropboxAuthToken">
+          <button v-mdl class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" v-on:click.prevent="disconnectDropbox()">
+            Disconnect Dropbox
+          </button>
+        </p>
+
+        <div v-if="!dropboxAuthToken">
           <p>No Dropbox connection found</p>
           <button v-on:click.prevent="connectToDropbox()" v-mdl class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
             Connect with Dropbox
           </button>
         </div>
 
-        <!-- <p>debug, always show connect:</p> -->
-        <!--
+        <p>debug, always show connect:</p>
         <button v-on:click.prevent="connectToDropbox()" v-mdl class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
           Connect with Dropbox
         </button>
-        -->
 
-        <div v-if="dropboxAuthed">
+        <div v-if="dropboxAuthToken">
 
           <h5>Notes Folder</h5>
 
@@ -117,7 +116,7 @@
     methods: {
 
       onSubmit (evt) {
-        console.log('form wanna submit', evt)
+        // console.log('form wanna submit', evt)
       },
 
       /**
@@ -173,11 +172,31 @@
 
       },
 
-      authDropbox (params) {
+      // called when dropbox auth params is found in router
+      // save options to db and commit state
+      // params: auth_token + more that we don't use
+      setDropboxAuth (params) {
 
-        this.dropboxAuthToken = params.access_token;
+        let dropboxAuthToken = params.access_token
+        console.log('setDropboxAuth', dropboxAuthToken)
 
-        dropboxStorage.storeAuthToken(this.dropboxAuthToken);
+        // store options in db
+        // update state using commit
+        db.options.put({
+          key: 'dropboxAuthToken',
+          value: dropboxAuthToken
+        }).then(() => {
+
+          // set state after save to db
+          this.$store.commit({
+            type: 'setOptions',
+            options: [{
+              key: 'dropboxAuthToken',
+              value: dropboxAuthToken
+            }]
+          })
+
+        })
 
       },
 
@@ -206,28 +225,24 @@
 
     mounted () {
 
-      // refresh view when auth token is stored
-      /*window.bus.$on('dropboxAuthTokenStored', (newDropboxAuthToken) => {
-        this.$router.go({
-            path: this.$router.path,
-            query: {
-                t: + new Date()
-            }
-        })
-      })*/
-
       // check for drobox params from oauth
       // if found then store auth token
       if (this.$route.params.access_token) {
 
-        this.authDropbox(this.$route.params);
+        this.setDropboxAuth(this.$route.params);
 
       }
-      
+
     },
     computed: {
       dropboxAuthToken() {
-        return this.$store.state.dropbox.authToken
+        return this.$store.state.options.dropboxAuthToken
+      },
+      dropboxNotesFolder() {
+        return this.$store.state.options.dropboxNotesFolder
+      },
+      dropboxUser() {
+        return this.$store.state.dropbox.user
       }
     },
     watch: {

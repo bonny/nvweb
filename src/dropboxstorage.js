@@ -79,18 +79,6 @@ class DropboxStorage {
     // return token
   }
 
-  // store token in db
-  storeAuthToken (token) {
-    console.log('storeAuthToken', token)
-
-    db.options.put({
-      key: 'dropboxAuthToken',
-      value: token
-    }).then(() => {
-
-    })
-  }
-
   getFolderList (path = '') {
     return this.dbx.filesListFolder({path: path})
   }
@@ -101,7 +89,7 @@ class DropboxStorage {
 
       if (val) {
         this.authToken = val.value
-        
+
       }
 
       if (callback) {

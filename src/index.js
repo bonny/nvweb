@@ -26,14 +26,5 @@ window.app = new Vue({
     this.$store.dispatch({
       type: 'loadOptionsFromDB'
     })
-
-    // when app is mounted we get the config things for Dropbox from the DB
-    this.$store.dispatch({
-      type: 'getDropboxAuthTokenFromDB'
-    })
-
-    this.$store.dispatch({
-      type: 'getDropboxNotesFolderPathFromDB'
-    })
   }
 })
