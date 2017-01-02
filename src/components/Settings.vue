@@ -134,8 +134,29 @@
 
       },
 
+      /**
+       * Disconnect dropbox by removing auth token and path from options
+       * and from db
+       */
       disconnectDropbox (evt) {
-        dropboxStorage.storeAuthToken(null)
+
+        // store options in db
+        // update state using commit
+        db.options.bulkPut([
+          { key: 'dropboxAuthToken', value: null },
+          { key: 'dropboxNotesFolderPath', value: null }
+        ]).then(() => {
+
+          this.$store.commit({
+            type: 'setOptions',
+            options: [
+              { key: 'dropboxAuthToken', value: null },
+              { key: 'dropboxNotesFolderPath', value: null }
+            ]
+          })
+
+        })
+
       },
 
       selectDropboxFolder (folder) {
@@ -178,7 +199,6 @@
       setDropboxAuth (params) {
 
         let dropboxAuthToken = params.access_token
-        console.log('setDropboxAuth', dropboxAuthToken)
 
         // store options in db
         // update state using commit
@@ -248,7 +268,7 @@
     watch: {
       // whenever question changes, this function will run
       dropboxAuthToken: function (newDropboxAuthToken) {
-        console.log('watch detected change in dropboxAuthToken', newDropboxAuthToken);
+        // console.log('watch detected change in dropboxAuthToken', newDropboxAuthToken);
       }
     }
   }
