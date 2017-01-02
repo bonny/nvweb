@@ -1,18 +1,20 @@
 
-import config from './config.js'
 let Dropbox = require('dropbox')
+import store from './store.js'
 import db from './db.js'
 
 class DropboxStorage {
 
-  constructor () {
+  constructor (store) {
+    this.store = store
+
     this.dbx = new Dropbox({
-      clientId: this.getAppKey(),
-      clientID: this.getAppKey()
+      clientId: store.state.dropbox.appKey,
+      clientID: store.state.dropbox.appKey
     })
 
     this.getAuthToken(() => {
-      console.log('getauthtoken in constructor callback, token is now ', this.authToken)
+      // console.log('getauthtoken in constructor callback, token is now ', this.authToken)
       this.reconfig()
     })
     // this.reconfig()
@@ -25,9 +27,10 @@ class DropboxStorage {
       clientID: this.getAppKey()
     }); */
 
-    console.log('reconfig', this)
+    // console.log('reconfig', this)
 
     this.dbx.setAccessToken(this.authToken)
+
   }
 
   // returns promise
@@ -56,11 +59,11 @@ class DropboxStorage {
 
   getAuthToken (callback) {
     db.options.where('key').equals('dropboxAuthToken').first().then((val) => {
-      console.log('getAuthToken returned', val)
+      //console.log('getAuthToken returned', val)
 
       if (val) {
         this.authToken = val.value
-        window.bus.$emit('dropboxAuthTokenChanged', val.value)
+
       }
 
       if (callback) {
@@ -84,25 +87,21 @@ class DropboxStorage {
       key: 'dropboxAuthToken',
       value: token
     }).then(() => {
-      window.bus.$emit('dropboxAuthTokenStored', token)
+
     })
   }
 
-  getAppKey () {
-    return config.dropbox.appKey
-  }
-
-  getFolderList () {
-    return this.dbx.filesListFolder({path: ''})
+  getFolderList (path = '') {
+    return this.dbx.filesListFolder({path: path})
   }
 
   getNotesFolder (callback) {
     db.options.where('key').equals('dropboxNotesFolder').first().then((val) => {
-      console.log('getNotesFolder returned', val)
+      // console.log('getNotesFolder returned', val)
 
       if (val) {
         this.authToken = val.value
-        window.bus.$emit('dropboxNotesFolderChanged', val.value)
+        
       }
 
       if (callback) {
@@ -115,4 +114,6 @@ class DropboxStorage {
 
 } // dropboxstorage
 
-module.exports = DropboxStorage
+let dropboxStorage = new DropboxStorage(store)
+
+module.exports = dropboxStorage

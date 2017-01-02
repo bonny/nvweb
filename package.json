@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "budo src/index.js:bundle.js --dir=dist --live",
     "start": "npm run watch",
-    "build": "browserify --entry=src/index.js --outfile=dist/bundle.js && npm run generateServiceWorker",
+    "build": "browserify --entry=src/index.js | uglifyjs --compress > dist/bundle.js && npm run generateServiceWorker",
     "generateServiceWorker": "sw-precache --root=dist --static-file-globs='dist/**/*.html'"
   },
   "author": "",

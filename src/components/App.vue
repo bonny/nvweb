@@ -1,4 +1,4 @@
-<style scoped>
+<style>
 </style>
 
 <template>
@@ -41,14 +41,8 @@
 
                 <main class="mdl-layout__content">
                   <div class="page-content">
-                    <!-- Your content goes here -->
 
-                    <!-- use router-link component for navigation. -->
-                    <!-- specify the link by passing the `to` prop. -->
-                    <!-- <router-link> will be rendered as an `<a>` tag by default -->
-                    <!-- <router-link to="/bar">Notes</router-link>
-                    <router-link :to="{ name: 'settings' }">Settings</router-link>
-                    <router-link :to="{ name: 'edit' }">Edit note</router-link> -->
+                    <!-- Your content goes here -->
 
                     <!-- route outlet -->
                     <!-- component matched by the route will render here -->
@@ -63,18 +57,26 @@
 
 <script>
 
-import config from './config.js'
-import Sidebar from './components/Sidebar.vue'
+// import config from '../config.js'
+import Sidebar from '../components/Sidebar.vue'
 
 export default {
-  mounted() {
+  name: 'app_vue',
+  mounted () {
     // console.log('did mount', this.msg)
     // console.log('config', config)
   },
   data () {
     return {
-      appTitle: config.appTitle
+      //appTitle: this.$store.state.appTitle
     }
+  },
+  computed: {
+
+    appTitle() {
+      return this.$store.state.appTitle
+    }
+
   },
   components: {
     Sidebar

@@ -17,7 +17,7 @@
           </div>
         </div>
 
-        <div v-if="dropboxAuthed">
+        <div v-if="dropboxUser">
 
           <p>
             <b>Connected account</b>
@@ -67,18 +67,18 @@
           <ul v-mdl class="demo-list-icon mdl-list">
             <li v-mdl class="mdl-list__item" v-for="folder in dropboxFolders">
 
-              <span v-mdl class="mdl-list__item-primary-content" v-on:click.prevent="selectDropboxFolder(folder)">
+              <span v-mdl class="mdl-list__item-primary-content">
                 <i v-mdl class="material-icons mdl-list__item-icon">folder</i>
                 <!-- {{folder.name}} -->
                 <span>{{folder.path_lower}}</span>
 
-                <!-- <span class="mdl-list__item-sub-title">
-                  <button v-mdl class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" v-on:click.prevent="getDropboxFolders()">
-                    Choose
-                  </button>
-                </span> -->
-
               </span>
+
+              <span class="mdl-list__item-secondary-action">
+                 <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-1">
+                   <input v-on:click.prevent="selectDropboxFolder(folder)" type="radio" id="list-option-1" class="mdl-radio__button" name="options" value="1" checked />
+                 </label>
+               </span>
 
             </li>
           </ul>
@@ -108,12 +108,9 @@
 
 <script>
 
-  import config from './config.js'
-  import db from './db.js'
-  import DropboxStorage from './dropboxstorage.js'
+  import db from '../db.js'
+  let dropboxStorage = require('../dropboxstorage.js')
   let Dropbox = require('dropbox')
-
-  let dropboxStorage = new DropboxStorage();
 
   export default {
 
@@ -151,7 +148,7 @@
           key: 'dropboxNotesFolder',
           value: this.dropboxNotesFolder
         }).then(() => {
-          window.bus.$emit('dropboxNotesFolderStored', token)
+          window.bus.$emit('dropboxNotesFolderStored', this.dropboxNotesFolder)
         })
 
       },
@@ -208,66 +205,29 @@
     }, // methods
 
     mounted () {
-      console.log("settings mounted");
-      console.log("bus in settings", window.bus)
-
-      window.bus.$on('dropboxAuthTokenChanged', (newDropboxAuthToken) => {
-
-        if (this.dropboxAuthToken != newDropboxAuthToken) {
-
-          console.log('bus detected change in dropboxAuthToken', this.dropboxAuthToken, newDropboxAuthToken)
-          this.dropboxAuthToken = newDropboxAuthToken
-          dropboxStorage.reconfig()
-          this.checkCurrentDropboxStatus()
-
-        }
-
-      })
-
-      // when selected folder path is read
-      window.bus.$on('dropboxNotesFolderChanged', (newDropboxNotesFolder) => {
-        this.dropboxNotesFolder = newDropboxNotesFolder
-      })
 
       // refresh view when auth token is stored
-      window.bus.$on('dropboxAuthTokenStored', (newDropboxAuthToken) => {
+      /*window.bus.$on('dropboxAuthTokenStored', (newDropboxAuthToken) => {
         this.$router.go({
             path: this.$router.path,
             query: {
                 t: + new Date()
             }
         })
-      })
+      })*/
 
       // check for drobox params from oauth
-      console.log('settings, $route', this.$route.params);
+      // if found then store auth token
       if (this.$route.params.access_token) {
 
         this.authDropbox(this.$route.params);
 
-      } else {
-        // can't do stuff here, need to wait for dropbox auth token to be read from db first
       }
-
-      /*window.bus.$on('app-mounted', function () {
-        console.log('settings got message that app is mounted')
-      })*/
-
+      
     },
-    data () {
-
-      dropboxStorage.getAuthToken()
-      dropboxStorage.getNotesFolder()
-
-      return {
-        appTitle: config.appTitle,
-        dropboxAuthToken: null,
-        dropboxAppKey: dropboxStorage.getAppKey(),
-        dropboxAuthUrl: null,
-        dropboxUser: "Loading...",
-        dropboxAuthed: false,
-        dropboxNotesFolder: null,
-        dropboxFolders: null,
+    computed: {
+      dropboxAuthToken() {
+        return this.$store.state.dropbox.authToken
       }
     },
     watch: {

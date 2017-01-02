@@ -2,7 +2,7 @@
 
   <div class="mdl-layout__drawer">
 
-    <span class="mdl-layout-title">{{appTitle}} {{title}}</span>
+    <span class="mdl-layout-title">{{title}}</span>
 
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="">Link</a>
