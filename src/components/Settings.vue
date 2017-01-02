@@ -121,10 +121,6 @@
 
     methods: {
 
-      onSubmit (evt) {
-        // console.log('form wanna submit', evt)
-      },
-
       /**
        * If ok then user is redirected to
        * http://localhost:9966/#/access_token=RP1EjVGXf0EAAAAAAAKmRkPmernFM-Zuak3RYcBpYGgXZATz3B87PA_XaiszwqNs&token_type=bearer&uid=171101&account_id=dbid%3AAADJMGQ8ifVXcPhzE9ubPPXGyUpoOs5v1xg
@@ -277,12 +273,6 @@
       dropboxUser() {
         return this.$store.state.dropbox.user
       }
-    },
-    watch: {
-      // whenever question changes, this function will run
-      //dropboxAuthToken: function (newDropboxAuthToken) {
-        // console.log('watch detected change in dropboxAuthToken', newDropboxAuthToken);
-      //}
     },
     data() {
       return {
