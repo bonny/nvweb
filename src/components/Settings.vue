@@ -41,10 +41,10 @@
           </button>
         </div>
 
-        <p>debug, always show connect:</p>
+        <!-- <p>debug, always show connect:</p>
         <button v-on:click.prevent="connectToDropbox()" v-mdl class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
           Connect with Dropbox
-        </button>
+        </button> -->
 
         <div v-if="dropboxAuthToken">
 
@@ -53,13 +53,19 @@
           <div>
             <div>Folder where notes are stored</div>
             <div v-mdl class="mdl-textfield mdl-js-textfield">
-                <input v-mdl class="mdl-textfield__input" type="text" :value="dropboxNotesFolder" readonly="">
+                <input v-mdl class="mdl-textfield__input" type="text" :value="dropboxNotesFolderPath ? dropboxNotesFolderPath : '<No folder selected>'" readonly="">
             </div>
           </div>
 
-          <p v-if="!dropboxFolders">
+          <p v-if="!dropboxFolders && !dropboxNotesFolderPath">
             <button v-mdl class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" v-on:click.prevent="getDropboxFolders()">
               Select folder
+            </button>
+          </p>
+
+          <p v-if="!dropboxFolders && dropboxNotesFolderPath">
+            <button v-mdl class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" v-on:click.prevent="getDropboxFolders()">
+              Change folder
             </button>
           </p>
 
@@ -161,14 +167,21 @@
 
       selectDropboxFolder (folder) {
         console.log('selectDropboxFolder', folder)
-        this.dropboxNotesFolder = folder.path_lower;
+        let dropboxNotesFolderPath = folder.path_lower;
         this.dropboxFolders = null;
 
         db.options.put({
-          key: 'dropboxNotesFolder',
-          value: this.dropboxNotesFolder
+          key: 'dropboxNotesFolderPath',
+          value: dropboxNotesFolderPath
         }).then(() => {
-          window.bus.$emit('dropboxNotesFolderStored', this.dropboxNotesFolder)
+          //window.bus.$emit('dropboxNotesFolderStored', this.dropboxNotesFolder)
+          this.$store.commit({
+            type: 'setOptions',
+            options: [
+              { key: 'dropboxNotesFolderPath', value: dropboxNotesFolderPath }
+            ]
+          })
+
         })
 
       },
@@ -225,7 +238,7 @@
         dropboxStorage.getFolderList()
           .then( (response) => {
             // renderItems(response.entries)
-            console.log('response', response)
+            //console.log('response', response)
 
             // only keep folders
             let folders = response.entries.filter((val) => {
@@ -258,8 +271,8 @@
       dropboxAuthToken() {
         return this.$store.state.options.dropboxAuthToken
       },
-      dropboxNotesFolder() {
-        return this.$store.state.options.dropboxNotesFolder
+      dropboxNotesFolderPath() {
+        return this.$store.state.options.dropboxNotesFolderPath
       },
       dropboxUser() {
         return this.$store.state.dropbox.user
@@ -267,8 +280,13 @@
     },
     watch: {
       // whenever question changes, this function will run
-      dropboxAuthToken: function (newDropboxAuthToken) {
+      //dropboxAuthToken: function (newDropboxAuthToken) {
         // console.log('watch detected change in dropboxAuthToken', newDropboxAuthToken);
+      //}
+    },
+    data() {
+      return {
+        dropboxFolders: null
       }
     }
   }
