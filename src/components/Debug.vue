@@ -9,26 +9,11 @@
       <h4>Options</h4>
       <pre>{{ JSON.stringify(options, null, '  ') }}</pre>
 
-      <h4>Files in notes folder</h4>
+      <h4>Notes</h4>
 
-      <ul class="mdl-list">
+      <p>{{notes.length}} notes</p>
 
-        <li v-for="file in this.NotesFolderFiles" class="mdl-list__item mdl-list__item--three-line">
-
-          <span class="mdl-list__item-primary-content">
-            <span>{{file.name}}</span>
-            <span class="mdl-list__item-text-body">
-              {{file.client_modified}}
-              {{file.size}} bytes
-            </span>
-          </span>
-          <span class="mdl-list__item-secondary-content">
-            <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-          </span>
-
-        </li>
-
-      </ul>
+      <NotesList></NotesList>
 
     </div>
 
@@ -40,6 +25,7 @@
 
 import DropboxStorage from '../dropboxstorage.js'
 import db from '../db.js'
+import NotesList from '../components/NotesList.vue'
 
 export default {
 
@@ -94,8 +80,15 @@ export default {
   computed: {
     options () {
       return this.$store.state.options
+    },
+    notes () {
+      return this.$store.state.notes
     }
   },
+
+  components: {
+    NotesList
+  }
 
 }
 

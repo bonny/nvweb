@@ -11,13 +11,20 @@ const store = new Vuex.Store({
       dropboxAuthToken: null,
       dropboxNotesFolderPath: null
     },
+    notes: [{
+      name: 'example 1',
+      previewText: 'Lorem ipsum dolor sit amet',
+      humanDate: 'Idag 09:10'
+    }, {
+      name: 'stupid hackaton',
+      previewText: '- streama sin chrome/browser-historik - stream clipboard - chatroulette - fast för clipboard',
+      humanDate: 'Måndag 16:43'
+    }],
     dropbox: {
       appKey: 'wytvhdqaazystov',
-      // authToken: null,
       authUrl: null,
       user: null,
       isAuthed: false,
-      // notesFolderPath: null,
       folders: null
     }
   },

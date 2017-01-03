@@ -89,7 +89,6 @@ class DropboxStorage {
 
       if (val) {
         this.authToken = val.value
-
       }
 
       if (callback) {
