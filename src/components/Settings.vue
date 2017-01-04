@@ -118,7 +118,7 @@
   let Dropbox = require('dropbox')
 
   export default {
-
+    name: 'Settings',
     methods: {
 
       /**

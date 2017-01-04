@@ -6,50 +6,50 @@
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
               mdl-layout--fixed-header">
 
-              <!-- The drawer is always open in large screens. The header is always shown,
-                even in small screens. -->
-                <header class="mdl-layout__header">
-                  <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title">{{appTitle}}</span>
-                    <div class="mdl-layout-spacer"></div>
+  <!-- The drawer is always open in large screens. The header is always shown,
+    even in small screens. -->
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">{{appTitle}}</span>
+        <div class="mdl-layout-spacer"></div>
 
-                    <!-- search icon -->
-                    <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                                mdl-textfield--floating-label mdl-textfield--align-right">
+        <!-- search icon -->
+        <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                    mdl-textfield--floating-label mdl-textfield--align-right">
 
-                      <<label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-                        <i class="material-icons">search</i>
-                      </label>
+          <<label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+            <i class="material-icons">search</i>
+          </label>
 
-                      <div class="mdl-textfield__expandable-holder">
-                        <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
-                      </div>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
+          </div>
 
-                    </div>-->
-                    <!-- // search -->
+        </div>-->
+        <!-- // search -->
 
-                    <router-link tag="button" class="mdl-button mdl-js-button mdl-button--icon" :to="{ name: 'settings' }">
-                      <i class="material-icons">settings</i>
-                    </router-link>
+        <router-link tag="button" class="mdl-button mdl-js-button mdl-button--icon" :to="{ name: 'settings' }">
+          <i class="material-icons">settings</i>
+        </router-link>
 
-                    <div class="mdl-layout-icon"></div>
+        <div class="mdl-layout-icon"></div>
 
-                  </div>
-                </header>
+      </div>
+    </header>
 
-                <sidebar :title="appTitle"></sidebar>
+    <sidebar :title="sidebarTitle"></sidebar>
 
-                <main class="mdl-layout__content">
-                  <div class="page-content">
+    <main class="mdl-layout__content">
+      <div class="page-content">
 
-                    <!-- Your content goes here -->
+        <!-- Your content goes here -->
 
-                    <!-- route outlet -->
-                    <!-- component matched by the route will render here -->
-                    <router-view></router-view>
+        <!-- route outlet -->
+        <!-- component matched by the route will render here -->
+        <router-view></router-view>
 
-                  </div>
-                </main>
+      </div>
+    </main>
 
   </div>
 
@@ -75,6 +75,9 @@ export default {
 
     appTitle() {
       return this.$store.state.appTitle
+    },
+    sidebarTitle() {
+      return 'Notes'
     }
 
   },

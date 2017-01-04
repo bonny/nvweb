@@ -1481,6 +1481,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.11.1:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
+
 ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
@@ -2316,6 +2320,12 @@ vue-mdl@^1.0.0-alpha.4:
   resolved "https://registry.yarnpkg.com/vue-mdl/-/vue-mdl-1.0.0-alpha.4.tgz#75dfbc61a396d8071bf890a40758050aef7d16e6"
   dependencies:
     focus-trap "^2.1.0"
+
+vue-moment@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vue-moment/-/vue-moment-2.0.2.tgz#c480341f281d8edc08126ffea5c45ce92e6c584b"
+  dependencies:
+    moment "^2.11.1"
 
 vue-router@^2.1.1:
   version "2.1.1"

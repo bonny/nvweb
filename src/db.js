@@ -4,7 +4,7 @@ import Dexie from 'dexie'
 let db = new Dexie('MyDatabase')
 db.version(1).stores({
   options: '&key',
-  notes: '++id,dropboxData'
+  notes: '++id,dateModified'
 })
 // console.log('dexie res', res)
 

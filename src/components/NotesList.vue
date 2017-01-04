@@ -22,12 +22,12 @@
       <span class="mdl-list__item-primary-content">
         <span>{{note.name}}</span>
         <span class="mdl-list__item-sub-title">
-          hejsan {{note.previewText}}
+          {{note.previewText}}
         </span>
       </span>
 
       <span class="mdl-list__item-secondary-content">
-        <span class="mdl-list__item-secondary-info">{{note.humanDate}}</span>
+        <span class="mdl-list__item-secondary-info">{{ note.dateModified | moment('from') }}</span>
       </span>
 
     </li>
@@ -51,6 +51,9 @@ export default {
   methods: {
     editNote (note) {
       console.log('edit note', note)
+    },
+    humanDate(note) {
+      return note.dateModified
     }
   },
 

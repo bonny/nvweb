@@ -28,7 +28,7 @@ import db from '../db.js'
 import NotesList from '../components/NotesList.vue'
 
 export default {
-
+  name: 'Debug',
   mounted () {
 
     /*

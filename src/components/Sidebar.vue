@@ -4,11 +4,6 @@
 
     <span class="mdl-layout-title">{{title}}</span>
 
-    <div v-mdl class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input v-mdl class="mdl-textfield__input" type="text" id="sample3">
-      <label v-mdl class="mdl-textfield__label" for="sample3">Search</label>
-    </div>
-
     <div v-mdl class="mdl-textfield mdl-js-textfield">
       <input v-mdl class="mdl-textfield__input" type="text" id="sample1">
       <label v-mdl class="mdl-textfield__label" for="sample1">Search</label>
