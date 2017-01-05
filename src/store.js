@@ -59,6 +59,16 @@ const store = new Vuex.Store({
         })
       })
     },
+    // Load all notes from db
+    loadNotesFromDB (context) {
+      db.notes.toArray().then((notes) => {
+        console.log('notes loaded from db', notes)
+        context.commit({
+          type: 'setNotes',
+          options: notes
+        })
+      })
+    },
     addDefaultNotes (context) {
       let notes = [
         {

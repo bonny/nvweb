@@ -30,13 +30,21 @@ window.app = new Vue({
     this.$store.dispatch({
       type: 'loadOptionsFromDB'
     }).then(() => {
+      // load notes
+      this.$store.dispatch({
+        type: 'loadNotesFromDB'
+      })
+
       // if db is empty then add some default data
+      /*
       if (!this.$store.state.notes.length) {
         console.log('add default notes')
         this.$store.dispatch({
           type: 'addDefaultNotes'
         })
       }
+      */
+
     })
   }
 })
