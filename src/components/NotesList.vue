@@ -8,7 +8,21 @@
 
   .mdl-list__item--two-line .mdl-list__item-primary-content {
     /* always give space to date */
-    max-width: calc(100% - 4em);
+    /*max-width: calc(100% - 4em);*/
+  }
+
+  .mdl-list__item {
+    position: relative;
+  }
+
+  .mdl-list__item-secondary-content {
+    position: absolute;
+    top: 22px;
+    right: 16px;
+  }
+
+  .mdl-list__item-secondary-info {
+    /*white-space: nowrap;*/
   }
 
 </style>
