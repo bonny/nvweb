@@ -13,6 +13,11 @@
 
   .mdl-list__item {
     position: relative;
+    cursor: pointer;
+  }
+
+  .mdl-list__item:hover {
+    background: #eee;
   }
 
   .mdl-list__item-secondary-content {
@@ -64,7 +69,11 @@ export default {
   },
   methods: {
     editNote (note) {
-      console.log('edit note', note)
+      // console.log('edit note', note.id)
+      this.$router.push({
+        name: 'edit',
+        params: { noteID: note.id }
+      })
     },
     humanDate(note) {
       return note.dateModified

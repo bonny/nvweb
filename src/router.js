@@ -14,7 +14,7 @@ const routes = [
     name: 'settings'
   },
   {
-    path: '/edit',
+    path: '/edit/:noteID',
     component: Edit,
     name: 'edit'
   },

@@ -63,8 +63,7 @@ import Sidebar from '../components/Sidebar.vue'
 export default {
   name: 'app_vue',
   mounted () {
-    // console.log('did mount', this.msg)
-    // console.log('config', config)
+    this.boot()
   },
   data () {
     return {
@@ -74,7 +73,7 @@ export default {
   computed: {
 
     appTitle() {
-      return this.$store.state.appTitle
+      return this.$store.state.currentNote.name ? this.$store.state.currentNote.name : this.$store.state.appTitle
     },
     sidebarTitle() {
       return 'Notes'
@@ -83,6 +82,33 @@ export default {
   },
   components: {
     Sidebar
+  },
+  methods: {
+    // when app is mounted we boot by loading options and notes from db
+    boot () {
+      this.$store.dispatch({
+        type: 'loadOptionsFromDB'
+      }).then(() => {
+        // load notes
+        this.$store.dispatch({
+          type: 'loadNotesFromDB'
+        })
+
+        // if db is empty then add some default data
+        /*
+        //if (!this.$store.state.notes.length) {
+          console.log('add default notes')
+          for (let i = 0; i < 100; i++) {
+            this.$store.dispatch({
+              type: 'addDefaultNotes'
+            })
+          }
+        //}
+        //*/
+
+      })
+
+    }
   }
 }
 

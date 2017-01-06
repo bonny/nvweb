@@ -33,8 +33,8 @@
     <div class="sidebarSearchWrap">
 
         <div v-mdl class="mdl-textfield mdl-js-textfield mdl-textfield--sidebarSearch">
-          <input v-mdl class="mdl-textfield__input" type="text" id="sample1">
-          <label v-mdl class="mdl-textfield__label" for="sample1">Search</label>
+          <input v-mdl class="mdl-textfield__input" type="text" id="sidebarSearch">
+          <label v-mdl class="mdl-textfield__label" for="sidebarSearch">Search or Create</label>
         </div>
 
     </div>
