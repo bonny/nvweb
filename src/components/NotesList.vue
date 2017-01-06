@@ -70,6 +70,13 @@ export default {
   methods: {
     editNote (note) {
       // console.log('edit note', note.id)
+
+      // close drawer on small screens
+      let d = document.querySelector('.mdl-layout')
+      if (d.classList.contains("is-small-screen")) {
+        d.MaterialLayout.toggleDrawer()
+      }
+
       this.$router.push({
         name: 'edit',
         params: { noteID: note.id }
