@@ -16,8 +16,13 @@
     cursor: pointer;
   }
 
+  .mdl-list__item:focus,
   .mdl-list__item:hover {
     background: #eee;
+  }
+
+  .mdl-list__item--selected.mdl-list__item--selected {
+    background: #ddd;
   }
 
   .mdl-list__item-secondary-content {
@@ -34,15 +39,27 @@
 
 <template>
 
+  <div>
+
+
   <ul class="mdl-list">
 
-    <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line" v-on:click="editNote(note)">
+    <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
+        v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
+        v-on:click="editNote(note)"
+        v-on:keyup.enter="editNote(note)"
+        tabindex="0">
 
       <span class="mdl-list__item-primary-content">
-        <span>{{note.name}}</span>
+
+        <span>
+          {{note.id}}: {{note.name}}
+        </span>
+
         <span class="mdl-list__item-sub-title">
           {{note.previewText}}
         </span>
+
       </span>
 
       <span class="mdl-list__item-secondary-content">
@@ -53,6 +70,8 @@
 
   </ul>
 
+  </div>
+
 </template>
 
 <script>
@@ -60,11 +79,22 @@
 export default {
   name: "NotesList",
   computed: {
-    options () {
-      return this.$store.state.options
-    },
     notes () {
       return this.$store.state.notes
+    },
+    testar () {
+      return 123;
+    }
+    /*
+      console.log(this.$store.currentNote)
+      return this.$store.currentNote
+      return this.$store.currentNote ? this.$store.currentNote.id : null
+    }
+    */
+  },
+  data: function () {
+    return {
+      apa: 'gorilla'
     }
   },
   methods: {
