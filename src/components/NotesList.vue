@@ -1,9 +1,13 @@
 <style scoped>
 
   /* keep preview text on one line */
-  .mdl-list__item-sub-title {
+  .mdl-list__item-sub-title,
+  .NoteList-noteName {
+    display: block;
     overflow: hidden;
     white-space: nowrap;
+    /*background: lightyellow;*/
+    max-width: 290px;
   }
 
   .mdl-list__item--two-line .mdl-list__item-primary-content {
@@ -27,8 +31,10 @@
 
   .mdl-list__item-secondary-content {
     position: absolute;
-    top: 22px;
+    top: 18px;
     right: 16px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 1);
   }
 
   .mdl-list__item-secondary-info {
@@ -38,9 +44,6 @@
 </style>
 
 <template>
-
-  <div>
-
 
   <ul class="mdl-list">
 
@@ -52,8 +55,8 @@
 
       <span class="mdl-list__item-primary-content">
 
-        <span>
-          {{note.id}}: {{note.name}}
+        <span class="NoteList-noteName">
+          {{note.name}}
         </span>
 
         <span class="mdl-list__item-sub-title">
@@ -69,8 +72,6 @@
     </li>
 
   </ul>
-
-  </div>
 
 </template>
 
