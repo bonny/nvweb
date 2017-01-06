@@ -36,6 +36,10 @@
 </template>
 
 <script>
+
+import _ from 'lodash'
+import db from '../db.js'
+
 export default {
   name: 'edit',
   mounted () {
@@ -80,21 +84,35 @@ export default {
 
         // set focus after note set
         // @TODO: use nextTick or something here? timeout feels very dirty
-        setTimeout(function() {
-          var el = document.getElementById('editText')
-          el.setSelectionRange(0,0)
-          el.focus()
-        }, 1)
+        if (this.$route.params.focusText) {
+          setTimeout(function() {
+            var el = document.getElementById('editText')
+            el.setSelectionRange(0,0)
+            el.focus()
+          }, 1)
+        }
 
       })
     },
     // called when text is updated
-    update (e) {
+    // update note in db
+    update: _.debounce(function (e) {
+      console.log('update in db', this.$store.state.currentNote.id)
       let text = e.target.value
-      //console.log('on update', e.target.value, this.$store.state.currentNote.text)
-      this.$store.state.currentNote.text = text
+      let noteID = this.$store.state.currentNote.id
 
-    }
+      db.notes.update(noteID, {
+        text: text,
+        dateModified: Date.now()
+      }).then((numRowsUpdated) => {
+        console.log('note updated, result was', numRowsUpdated)
+      })
+
+      //console.log('on update', e.target.value, this.$store.state.currentNote.text)
+      //this.$store.state.currentNote.text = text
+      //this.$store.state.currentNote.previewText = text
+
+    }, 500)
   },
   watch: {
     '$route' (to, from) {

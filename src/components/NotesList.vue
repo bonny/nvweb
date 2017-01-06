@@ -8,6 +8,7 @@
     white-space: nowrap;
     /*background: lightyellow;*/
     max-width: 290px;
+    text-overflow: ellipsis;
   }
 
   .mdl-list__item--two-line .mdl-list__item-primary-content {
@@ -31,10 +32,14 @@
 
   .mdl-list__item-secondary-content {
     position: absolute;
-    top: 18px;
+    /*top: 18px;
     right: 16px;
-    padding: 4px;
-    background: rgba(255, 255, 255, 1);
+    padding: 4px;*/
+    /*background: rgba(255, 255, 255, 1);*/
+    position: absolute;
+    top: 4px;
+    left: 0px;
+    padding: 0;
   }
 
   .mdl-list__item-secondary-info {
@@ -51,6 +56,7 @@
         v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
         v-on:click="editNote(note)"
         v-on:keyup.enter="editNote(note)"
+        v-on:keyup.tab="viewNote(note)"
         tabindex="0">
 
       <span class="mdl-list__item-primary-content">
@@ -60,7 +66,7 @@
         </span>
 
         <span class="mdl-list__item-sub-title">
-          {{note.previewText}}
+          {{note.text | trim}}
         </span>
 
       </span>
@@ -82,9 +88,6 @@ export default {
   computed: {
     notes () {
       return this.$store.state.notes
-    },
-    testar () {
-      return 123;
     }
     /*
       console.log(this.$store.currentNote)
@@ -93,6 +96,13 @@ export default {
     }
     */
   },
+  filters: {
+     trim: function (value) {
+       if (!value) return ''
+       // value = value.toString()
+       return value.substr(0, 75)
+     }
+  },
   data: function () {
     return {
       apa: 'gorilla'
@@ -100,7 +110,6 @@ export default {
   },
   methods: {
     editNote (note) {
-      // console.log('edit note', note.id)
 
       // close drawer on small screens
       let d = document.querySelector('.mdl-layout')
@@ -110,8 +119,16 @@ export default {
 
       this.$router.push({
         name: 'edit',
-        params: { noteID: note.id }
+        params: { noteID: note.id, focusText: true }
       })
+    },
+    viewNote (note) {
+
+      this.$router.push({
+        name: 'edit',
+        params: { noteID: note.id, focusText: false }
+      })
+
     },
     humanDate(note) {
       return note.dateModified

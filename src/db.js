@@ -25,7 +25,7 @@ let notesToAdd = [
   }
 ]
 
-db.notes.bulkPut(notesToAdd)
+// db.notes.bulkPut(notesToAdd)
   // }
 // })
 

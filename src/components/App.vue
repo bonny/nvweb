@@ -1,4 +1,11 @@
 <style>
+  .mdl-layout-title {
+    text-overflow: ellipsis;
+    max-width: 85%;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+  }
 </style>
 
 <template>
