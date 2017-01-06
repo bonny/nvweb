@@ -63,7 +63,7 @@ export default {
       return this.$route.params.noteID
     }*/
     noteText () {
-      console.log('computed noteText', this.$store.state.currentNote.text)
+      // console.log('computed noteText', this.$store.state.currentNote.text)
       return this.$store.state.currentNote.text
     }
   },
