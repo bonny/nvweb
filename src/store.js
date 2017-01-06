@@ -55,21 +55,28 @@ const store = new Vuex.Store({
     // set note being edited
     setCurrentNote (state, payload) {
       // state.currentNote
-      console.log('setCurrentNote', payload)
+      // console.log('setCurrentNote', payload)
       state.currentNote = payload.note
     }
   },
   actions: {
     setCurrentNote (context, payload) {
-      console.log(`action setCurrentNote for note with id ${payload.noteID}`, context, payload)
-      db.notes.get(payload.noteID).then((val) => {
-        console.log('got note from db', val)
+      // console.log(`action setCurrentNote for note with id ${payload.noteID}`, context, payload)
+
+      return db.notes.get(payload.noteID).then((val) => {
+        // console.log('got note from db', val)
+        if (!val) {
+          console.log('could not get note from db, note id was', payload.noteID)
+          return
+        }
+
         var note = {
           id: val.id,
           name: val.name,
           previewText: val.previewText,
           text: val.text
         }
+
         context.commit({
           type: 'setCurrentNote',
           note
