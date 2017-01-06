@@ -1,14 +1,19 @@
 <style scoped>
   .editText {
-    width: 95%;
+    width: 100%;
+    height: 100%;
     background: #f0f0f0;
     font-family: inherit;
     font-size: 1.25rem;
     padding: .75rem;
     border: none;
+    box-sizing: border-box;
   }
   .editText:focus {
     outline: none;
+  }
+  .mdl-grid {
+    height: calc(100vh - 80px);
   }
 </style>
 
@@ -97,20 +102,30 @@ export default {
     // called when text is updated
     // update note in db
     update: _.debounce(function (e) {
-      console.log('update in db', this.$store.state.currentNote.id)
-      let text = e.target.value
+      // console.log('update in db', this.$store.state.currentNote.id)
+
+      //this.$store.state.currentNote.text = text
+      //this.$store.state.currentNote.previewText = text
+
+      let noteText = e.target.value
       let noteID = this.$store.state.currentNote.id
 
       db.notes.update(noteID, {
-        text: text,
+        text: noteText,
         dateModified: Date.now()
       }).then((numRowsUpdated) => {
-        console.log('note updated, result was', numRowsUpdated)
+        // console.log('note updated, result was', numRowsUpdated)
+        // update note in store
+        this.$store.commit({
+          type: 'setSingleNote',
+          note: {
+            text: noteText,
+            id: noteID
+          }
+        })
       })
 
       //console.log('on update', e.target.value, this.$store.state.currentNote.text)
-      //this.$store.state.currentNote.text = text
-      //this.$store.state.currentNote.previewText = text
 
     }, 500)
   },

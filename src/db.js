@@ -15,12 +15,10 @@ db.version(1).stores({
 let notesToAdd = [
   {
     name: faker.lorem.sentences(2),
-    previewText: faker.lorem.sentences(3),
+    // previewText: faker.lorem.sentences(3),
     text: faker.lorem.paragraphs(10),
     dateModified: Date.now(),
     dropboxData: {
-      hej: 'hopp',
-      yolo: 'hashtag'
     }
   }
 ]

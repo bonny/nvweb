@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from './db.js'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
@@ -28,11 +29,11 @@ const store = new Vuex.Store({
       folders: null
     },
     currentNote: {
+      // same params as every note
       id: null,
       name: null,
-      previewText: null,
-      text: null
-      // modification date etc
+      text: null,
+      dateModified: null
     }
   },
   mutations: {
@@ -57,6 +58,18 @@ const store = new Vuex.Store({
       // state.currentNote
       // console.log('setCurrentNote', payload)
       state.currentNote = payload.note
+    },
+    setSingleNote (state, payload) {
+      // find note by id
+      // console.log('setSingleNote payload.note', payload.note)
+      let note = _.find(state.notes, (val) => {
+        return val.id === payload.note.id
+      })
+
+      if (note) {
+        note.text = payload.note.text
+      }
+
     }
   },
   actions: {

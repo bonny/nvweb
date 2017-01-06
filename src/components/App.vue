@@ -1,9 +1,19 @@
-<style>
+<style scoped>
   .mdl-layout-title {
-    text-overflow: ellipsis;
     max-width: 85%;
-    white-space: nowrap;
+    width: 85%;
     display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .mdl-textfield {
+    width: 100%;
+  }
+  #editNoteTitle {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     overflow: hidden;
   }
 </style>
@@ -17,7 +27,13 @@
     even in small screens. -->
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">{{appTitle}}</span>
+        <span class="mdl-layout-title">
+
+          <div v-mdl class="mdl-textfield mdl-js-textfield">
+            <input v-mdl class="mdl-textfield__input" v-model="appTitle" type="text" id="editNoteTitle">
+          </div>
+
+        </span>
         <div class="mdl-layout-spacer"></div>
 
         <!-- search icon -->
