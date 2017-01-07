@@ -48,9 +48,13 @@ import db from '../db.js'
 export default {
   name: 'edit',
   mounted () {
-    // console.log('edit mounted', this.$route.params.noteID)
+    console.log('edit mounted', this.$route.params.noteID)
     this.editNote(this.$route.params.noteID)
   },
+  /*created () {
+    console.log('edit created', this.$route.params.noteID)
+    this.editNote(this.$route.params.noteID)
+  },*/
   /*
   beforeRouteEnter (to, from, next) {
     // called before the route that renders this component is confirmed.
@@ -79,9 +83,11 @@ export default {
   methods: {
     // load note from db
     editNote (noteID) {
-      // this.noteID = noteID
-      // console.log('edit note', noteID)
-      this.$store.dispatch({
+      // noteID must be integer
+      noteID = parseInt(noteID)
+
+      console.log('edit note, send store dispatch setCurrentNote', noteID)
+      return this.$store.dispatch({
         type: 'setCurrentNote',
         noteID: noteID
       }).then(() => {
@@ -147,6 +153,23 @@ export default {
     el.setSelectionRange(1,10)
     */
 
+  },
+  /*
+  beforeRouteEnter (to, from, next) {
+    if (from.path == "/" && !from.name) {
+      // We are coming from a fresh reload, need to wait for db and notes to be loaded
+      console.log('edit beforeRouteEnter', to, from)
+      setTimeout(() => {
+        console.log('go on after timeout')
+        next((vm) => {
+          console.log('go on inside next', vm)
+        })
+      }, 0)
+    } else {
+      next(true)
+    }
+    // next(false)
   }
+  */
 }
 </script>

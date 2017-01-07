@@ -69,15 +69,13 @@ const store = new Vuex.Store({
       if (note) {
         note.text = payload.note.text
       }
-
     }
   },
   actions: {
     setCurrentNote (context, payload) {
-      // console.log(`action setCurrentNote for note with id ${payload.noteID}`, context, payload)
 
-      return db.notes.get(payload.noteID).then((val) => {
-        // console.log('got note from db', val)
+      return db.notes.get(payload.noteID).then(val => {
+        // console.log('got result from db', val)
         if (!val) {
           console.log('could not get note from db, note id was', payload.noteID)
           return
@@ -90,16 +88,16 @@ const store = new Vuex.Store({
           text: val.text
         }
 
-        context.commit({
+        return context.commit({
           type: 'setCurrentNote',
           note
         })
       })
     },
     loadOptionsFromDB (context) {
-      db.options.toArray().then((vals) => {
+      return db.options.toArray().then((vals) => {
         console.log(`${vals.length} options loaded from db`)
-        context.commit({
+        return context.commit({
           type: 'setOptions',
           options: vals
         })
@@ -107,9 +105,9 @@ const store = new Vuex.Store({
     },
     // Load all notes from db
     loadNotesFromDB (context) {
-      db.notes.orderBy('dateModified').reverse().toArray().then((notes) => {
+      return db.notes.orderBy('dateModified').reverse().toArray().then((notes) => {
         console.log(`${notes.length} notes loaded from db`)
-        context.commit({
+        return context.commit({
           type: 'setNotes',
           options: notes
         })

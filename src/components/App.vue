@@ -110,26 +110,17 @@ export default {
   methods: {
     // when app is mounted we boot by loading options and notes from db
     boot () {
+      // console.log('app boot begin')
+
       this.$store.dispatch({
         type: 'loadOptionsFromDB'
       }).then(() => {
         // load notes
         this.$store.dispatch({
           type: 'loadNotesFromDB'
+        }).then(() => {
+          console.log('app boot done')
         })
-
-        // if db is empty then add some default data
-        /*
-        //if (!this.$store.state.notes.length) {
-          console.log('add default notes')
-          for (let i = 0; i < 100; i++) {
-            this.$store.dispatch({
-              type: 'addDefaultNotes'
-            })
-          }
-        //}
-        //*/
-
       })
 
     }
