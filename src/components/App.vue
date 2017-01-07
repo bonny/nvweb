@@ -21,7 +21,9 @@
 <template>
 
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
-              mdl-layout--fixed-header">
+              mdl-layout--fixed-header"
+              v-on:keyup.esc="onPressEsc"
+              >
 
   <!-- The drawer is always open in large screens. The header is always shown,
     even in small screens. -->
@@ -123,6 +125,19 @@ export default {
         })
       })
 
+      /*var vm = this;
+      window.addEventListener('keyup', function(event) {
+        // If down arrow was pressed...
+        if (event.keyCode == 27) {
+          console.log('escape pressed')
+        }
+      });*/
+
+    },
+    // when user presses escape then focus seach/edit field
+    onPressEsc () {
+      let sidebarSearch = document.getElementById("sidebarSearch")
+      sidebarSearch.focus()
     }
   }
 }
