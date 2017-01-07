@@ -56,6 +56,12 @@ export default {
   },
   methods: {
     navNotesWithKeyboard (e) {
+
+      // Only act on arrow down/up
+      if (e.code != 'ArrowDown' && e.code != 'ArrowUp') {
+        return
+      }
+
       let activeElm = document.activeElement
       let lis = document.querySelectorAll('.mdl-list__item')
 
