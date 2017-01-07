@@ -22,7 +22,7 @@
 
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
               mdl-layout--fixed-header"
-              v-on:keyup.esc="onPressEsc"
+              v-on:keyup.esc="focusSearch"
               >
 
   <!-- The drawer is always open in large screens. The header is always shown,
@@ -135,7 +135,7 @@ export default {
 
     },
     // when user presses escape then focus seach/edit field
-    onPressEsc () {
+    focusSearch () {
       let sidebarSearch = document.getElementById("sidebarSearch")
       sidebarSearch.focus()
     }

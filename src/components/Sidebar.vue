@@ -27,7 +27,7 @@
 </style>
 <template>
 
-  <div class="mdl-layout__drawer">
+  <div class="mdl-layout__drawer" v-on:keyup="navNotesWithKeyboard">
 
     <!-- <span class="mdl-layout-title">{{title}}</span> -->
     <div class="sidebarSearchWrap">
@@ -53,6 +53,36 @@ export default {
   props: ["title"],
   components: {
     NotesList
+  },
+  methods: {
+    navNotesWithKeyboard (e) {
+      let activeElm = document.activeElement
+      let lis = document.querySelectorAll('.mdl-list__item')
+
+      // if current element is not an li then first li/note should be focused
+      if (activeElm.tagName !== 'LI') {
+        lis[0].focus()
+        return;
+      }
+
+      // find current index of active elm
+      let activeElmIndex;
+      for (let i = 0; i < lis.length; i++) {
+        if (lis[i] == activeElm) {
+          activeElmIndex = i;
+          break;
+        }
+      }
+
+      if (e.code == 'ArrowDown' && activeElmIndex < lis.length) {
+        lis[activeElmIndex+1].focus()
+      } else if (e.code == 'ArrowUp' && activeElmIndex > 0) {
+        lis[activeElmIndex-1].focus()
+      }
+
+      e.preventDefault()
+
+    }
   }
 }
 
