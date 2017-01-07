@@ -5,7 +5,7 @@
     background: #f0f0f0;
     font-family: inherit;
     font-size: 1.25rem;
-    padding: .75rem;
+    padding: 2rem;
     border: none;
     box-sizing: border-box;
   }
@@ -13,7 +13,16 @@
     outline: none;
   }
   .mdl-grid {
-    height: calc(100vh - 80px);
+    /*height: calc(100vh - 80px);*/
+    height: 100vh;
+  },
+  .mdl-grid,
+  .mdl-cell {
+    padding: 0;
+    margin: 0;
+  }
+  .mdl-cell--12-col {
+    width: 100%;
   }
 </style>
 
