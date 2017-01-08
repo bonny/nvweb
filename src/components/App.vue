@@ -22,7 +22,6 @@
 
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
               mdl-layout--fixed-header"
-              v-on:keyup.esc="focusSearch"
               >
 
   <!-- The drawer is always open in large screens. The header is always shown,
@@ -125,13 +124,13 @@ export default {
         })
       })
 
-      /*var vm = this;
-      window.addEventListener('keyup', function(event) {
+      // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
+      window.addEventListener('keyup', (event) => {
         // If down arrow was pressed...
         if (event.keyCode == 27) {
-          console.log('escape pressed')
+          this.focusSearch()
         }
-      });*/
+      });
 
     },
     // when user presses escape then focus seach/edit field

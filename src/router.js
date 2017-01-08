@@ -14,7 +14,7 @@ const routes = [
     name: 'settings'
   },
   {
-    path: '/edit/:noteID',
+    path: '/edit/:noteID/:focusText',
     component: Edit,
     name: 'edit'
   },

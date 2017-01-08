@@ -95,7 +95,7 @@ export default {
       // noteID must be integer
       noteID = parseInt(noteID)
 
-      console.log('edit note, send store dispatch setCurrentNote', noteID)
+      // console.log('edit note, send store dispatch setCurrentNote', noteID)
       return this.$store.dispatch({
         type: 'setCurrentNote',
         noteID: noteID
@@ -147,7 +147,7 @@ export default {
   watch: {
     '$route' (to, from) {
       // react to route changes...
-      // console.log('route changed', to, from)
+      console.log('route changed', to, from)
       this.editNote(this.$route.params.noteID)
     },
     noteText: function(newNoteText) {

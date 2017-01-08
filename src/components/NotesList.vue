@@ -26,6 +26,10 @@
     background: #eee;
   }
 
+  .mdl-list__item--selected {
+    background: #ddd;
+  }
+
   .mdl-list__item--selected.mdl-list__item--selected {
     background: #ddd;
   }
@@ -50,14 +54,15 @@
 
 <template>
 
-  <ul class="mdl-list">
+  <ul class="mdl-list mdl-list--notes">
 
     <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
         v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
-        v-on:click="editNote(note)"
-        v-on:keyup.enter="editNote(note)"
-        v-on:keyup.tab="viewNote(note)"
-        tabindex="0">
+        v-on:click="editNote(note.id)"
+        v-on:keyup.enter="editNote(note.id)"
+        xtabindex="0"
+        :data-noteID="note.id"
+        >
 
       <span class="mdl-list__item-primary-content">
 
@@ -108,8 +113,21 @@ export default {
       apa: 'gorilla'
     }
   },
+  mounted () {
+
+    this.$root.$on('NoteSelectedInNotesList', (elm, noteID) => {
+      console.log('NoteSelectedInNotesList', elm, noteID)
+      this.viewNote(noteID)
+    })
+
+    this.$root.$on('NoteSelectedInNotesListGoEdit', (elm, noteID) => {
+      console.log('NoteSelectedInNotesListGoEdit', elm, noteID)
+      this.editNote(noteID)
+    })
+
+  },
   methods: {
-    editNote (note) {
+    editNote (noteID) {
 
       // close drawer on small screens
       let d = document.querySelector('.mdl-layout')
@@ -119,14 +137,20 @@ export default {
 
       this.$router.push({
         name: 'edit',
-        params: { noteID: note.id, focusText: true }
+        params: {
+          noteID: noteID,
+          focusText: true
+        }
       })
     },
-    viewNote (note) {
+    viewNote (noteID) {
 
       this.$router.push({
         name: 'edit',
-        params: { noteID: note.id, focusText: false }
+        params: {
+          noteID: noteID,
+          focusText: false
+        }
       })
 
     },
