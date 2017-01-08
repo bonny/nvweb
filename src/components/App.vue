@@ -125,11 +125,19 @@ export default {
       })
 
       // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
-      window.addEventListener('keyup', (event) => {
-        // If down arrow was pressed...
-        if (event.keyCode == 27) {
+      window.addEventListener('keydown', (event) => {
+        // If down arrow was pressed or CMD + l
+        if (event.keyCode == 27 || (event.metaKey && event.key === 'l')) {
           this.focusSearch()
+          event.preventDefault()
         }
+
+        // If CMD + j/k = move next/prev note
+        if (event.metaKey && (event.key == 'j' || event.key == 'k')) {
+          console.log('move next/prev', event)
+          event.preventDefault()
+        }
+
       });
 
     },
@@ -137,6 +145,7 @@ export default {
     focusSearch () {
       let sidebarSearch = document.getElementById("sidebarSearch")
       sidebarSearch.focus()
+      sidebarSearch.select()
     }
   }
 }

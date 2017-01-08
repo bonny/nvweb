@@ -73,7 +73,6 @@ const store = new Vuex.Store({
   },
   actions: {
     setCurrentNote (context, payload) {
-
       return db.notes.get(payload.noteID).then(val => {
         // console.log('got result from db', val)
         if (!val) {

@@ -147,7 +147,7 @@ export default {
   watch: {
     '$route' (to, from) {
       // react to route changes...
-      console.log('route changed', to, from)
+      // console.log('route changed', to, from)
       this.editNote(this.$route.params.noteID)
     },
     noteText: function(newNoteText) {

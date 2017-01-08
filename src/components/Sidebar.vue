@@ -35,13 +35,14 @@
         <div v-mdl class="mdl-textfield mdl-js-textfield mdl-textfield--sidebarSearch">
           <input v-mdl class="mdl-textfield__input" type="text" id="sidebarSearch"
                  v-on:keyup.enter="editNote"
+                 v-on:keyup="searchNotes"
           >
           <label v-mdl class="mdl-textfield__label" for="sidebarSearch">Search or Create</label>
         </div>
 
     </div>
 
-    <NotesList></NotesList>
+    <NotesList v-bind:searchText="searchText"></NotesList>
 
   </div>
 
@@ -56,9 +57,13 @@ export default {
   components: {
     NotesList
   },
+  data () {
+    return {
+      searchText: ''
+    }
+  },
   methods: {
     navNotesWithKeyboard (e) {
-
       // Only act on arrow down/up
       if (e.code != 'ArrowDown' && e.code != 'ArrowUp') {
         return
@@ -89,7 +94,7 @@ export default {
 
       }
 
-      console.log('elmIndexToSelect', elmIndexToSelect)
+      // console.log('elmIndexToSelect', elmIndexToSelect)
 
       if (elmIndexToSelect !== undefined && elmIndexToSelect in lis) {
         document.querySelectorAll('.mdl-list--notes .mdl-list__item--selected').forEach((el) => {
@@ -117,7 +122,7 @@ export default {
     },
     // edit currenly selected note
     editNote (e) {
-      console.log('emit NoteSelectedInNotesListGoEdit', e)
+      // console.log('emit NoteSelectedInNotesListGoEdit', e)
 
       let selectedElm = document.querySelectorAll('.mdl-list__item--selected')
 
@@ -126,6 +131,13 @@ export default {
       }
 
       this.$root.$emit('NoteSelectedInNotesListGoEdit', selectedElm[0], selectedElm[0].dataset.noteid)
+    },
+    searchNotes (e) {
+
+      let searchText = e.target.value
+      console.log('maybe search notes for', searchText)
+      this.searchText = searchText
+
     }
   }
 }

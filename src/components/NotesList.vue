@@ -54,57 +54,79 @@
 
 <template>
 
-  <ul class="mdl-list mdl-list--notes">
+  <div>
 
-    <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
-        v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
-        v-on:click="editNote(note.id)"
-        v-on:keyup.enter="editNote(note.id)"
-        xtabindex="0"
-        :data-noteID="note.id"
-        >
+    <ul class="mdl-list mdl-list--notes">
 
-      <span class="mdl-list__item-primary-content">
+      <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
+          v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
+          v-on:click="editNote(note.id)"
+          v-on:keyup.enter="editNote(note.id)"
+          :data-noteID="note.id"
+          >
 
-        <span class="NoteList-noteName">
-          {{note.name}}
+        <span class="mdl-list__item-primary-content">
+
+          <span class="NoteList-noteName">
+            {{note.name}}
+          </span>
+
+          <span class="mdl-list__item-sub-title">
+            {{note.text | trim}}
+          </span>
+
         </span>
 
-        <span class="mdl-list__item-sub-title">
-          {{note.text | trim}}
+        <span class="mdl-list__item-secondary-content">
+          <span class="mdl-list__item-secondary-info">{{ note.dateModified | moment('from') }}</span>
         </span>
 
-      </span>
+      </li>
 
-      <span class="mdl-list__item-secondary-content">
-        <span class="mdl-list__item-secondary-info">{{ note.dateModified | moment('from') }}</span>
-      </span>
+    </ul>
 
-    </li>
-
-  </ul>
+  </div>
 
 </template>
 
 <script>
 
+var Fuse = require('fuse.js')
+
 export default {
   name: "NotesList",
+  props: ['searchText'],
   computed: {
     notes () {
-      return this.$store.state.notes
+      let notes = this.$store.state.notes
+      console.log('searchText', this.searchText)
+      if (this.searchText) {
+        let options = {
+          // include: ['score', 'matches'],
+          keys: ['name', 'text'],
+          shouldSort: true,
+          tokenize: true,
+          matchAllTokens: true,
+          findAllMatches: true,
+          threshold: 0.3, // default 0.6, but gave to many hits in my opinion
+          location: 0,
+          distance: 100,
+          maxPatternLength: 32,
+          minMatchCharLength: 1
+        }
+
+        var fuse = new Fuse(notes, options)
+
+        notes = fuse.search(this.searchText)
+        // console.log('notes searched', notes)
+      }
+
+      return notes
     }
-    /*
-      console.log(this.$store.currentNote)
-      return this.$store.currentNote
-      return this.$store.currentNote ? this.$store.currentNote.id : null
-    }
-    */
   },
   filters: {
      trim: function (value) {
        if (!value) return ''
-       // value = value.toString()
        return value.substr(0, 75)
      }
   },
@@ -114,17 +136,13 @@ export default {
     }
   },
   mounted () {
-
     this.$root.$on('NoteSelectedInNotesList', (elm, noteID) => {
-      console.log('NoteSelectedInNotesList', elm, noteID)
       this.viewNote(noteID)
     })
 
     this.$root.$on('NoteSelectedInNotesListGoEdit', (elm, noteID) => {
-      console.log('NoteSelectedInNotesListGoEdit', elm, noteID)
       this.editNote(noteID)
     })
-
   },
   methods: {
     editNote (noteID) {
