@@ -126,16 +126,15 @@ export default {
 
       // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
       window.addEventListener('keydown', (event) => {
-        // If down arrow was pressed or CMD + l
+        // If down arrow was pressed or CMD + l = focus search input
         if (event.keyCode == 27 || (event.metaKey && event.key === 'l')) {
           this.focusSearch()
           event.preventDefault()
         }
 
-        // If CMD + j/k = move next/prev note
+        // If CMD + j/k = maybe move next/prev note
         if (event.metaKey && (event.key == 'j' || event.key == 'k')) {
-          console.log('move next/prev', event)
-          event.preventDefault()
+          this.$root.$emit('NotelistMaybeKeyboardNavNotes', event)
         }
 
       });

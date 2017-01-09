@@ -143,6 +143,12 @@ export default {
     this.$root.$on('NoteSelectedInNotesListGoEdit', (elm, noteID) => {
       this.editNote(noteID)
     })
+
+    this.$root.$on('NotelistMaybeKeyboardNavNotes', (event) => {
+      console.log('maybe select next or prev note')
+      this.navNotesWithKeyboard(event)
+    })
+
   },
   methods: {
     editNote (noteID) {
@@ -174,6 +180,54 @@ export default {
     },
     humanDate(note) {
       return note.dateModified
+    },
+    navNotesWithKeyboard (e) {
+
+      let activeElm = document.querySelector('.mdl-list--notes .mdl-list__item--selected')
+      let lis = document.querySelectorAll('.mdl-list--notes .mdl-list__item')
+      let elmIndexToSelect;
+
+      // if current element is not an li then first li/note should be focused
+      if (!activeElm || activeElm.tagName !== 'LI') {
+        elmIndexToSelect = 0
+      } else if (activeElm && activeElm.tagName === 'LI') {
+        // find current index of active elm
+        let activeElmIndex;
+        for (let i = 0; i < lis.length; i++) {
+          if (lis[i] == activeElm) {
+            activeElmIndex = i;
+            break;
+          }
+        }
+
+        if ((e.code == 'ArrowDown' || (e.metaKey && e.key == 'j')) && activeElmIndex < lis.length) {
+          elmIndexToSelect = activeElmIndex+1
+        } else if ((e.code == 'ArrowUp' || (e.metaKey && e.key == 'k')) && activeElmIndex > 0) {
+          elmIndexToSelect = activeElmIndex-1
+        }
+
+      }
+
+      // console.log('elmIndexToSelect', elmIndexToSelect)
+
+      if (elmIndexToSelect !== undefined && elmIndexToSelect in lis) {
+        document.querySelectorAll('.mdl-list--notes .mdl-list__item--selected').forEach((el) => {
+          el.classList.remove('mdl-list__item--selected')
+        })
+
+        lis[elmIndexToSelect].classList.add('mdl-list__item--selected')
+
+      }
+
+      if (elmIndexToSelect !== undefined && elmIndexToSelect in lis) {
+        let noteID = parseInt(lis[elmIndexToSelect].dataset.noteid);
+
+        // get note id from data attr and pass
+        this.$root.$emit('NoteSelectedInNotesList', lis[elmIndexToSelect], noteID)
+      }
+
+      e.preventDefault()
+
     }
   },
 
