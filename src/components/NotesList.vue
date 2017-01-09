@@ -1,5 +1,11 @@
 <style scoped>
 
+  .NoteList-noteName {
+    font-size: 1rem;
+    letter-spacing: normal;
+    color: black;
+  }
+
   /* keep preview text on one line */
   .mdl-list__item-sub-title,
   .NoteList-noteName {
@@ -34,6 +40,12 @@
     background: #ddd;
   }
 
+  .mdl-list__item--two-line {
+    height: 78px;
+    padding: 16px;
+    padding: 22px 16px 10px 16px;
+  }
+
   .mdl-list__item-secondary-content {
     position: absolute;
     /*top: 18px;
@@ -41,7 +53,7 @@
     padding: 4px;*/
     /*background: rgba(255, 255, 255, 1);*/
     position: absolute;
-    top: 4px;
+    top: 14px;
     left: 0px;
     padding: 0;
   }
@@ -145,7 +157,6 @@ export default {
     })
 
     this.$root.$on('NotelistMaybeKeyboardNavNotes', (event) => {
-      console.log('maybe select next or prev note')
       this.navNotesWithKeyboard(event)
     })
 
