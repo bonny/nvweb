@@ -116,7 +116,7 @@ export default {
     },
     // called when text is updated
     // update note in db
-    update: _.debounce(function (e) {
+    update: _.debounce (function (e) {
       // console.log('update in db', this.$store.state.currentNote.id)
 
       //this.$store.state.currentNote.text = text
