@@ -107,7 +107,7 @@ export default {
           shouldSort: true,
           tokenize: true,
           matchAllTokens: true,
-          findAllMatches: true,
+          findAllMatches: false,
           threshold: 0.3, // default 0.6, but gave to many hits in my opinion
           location: 0,
           distance: 100,
