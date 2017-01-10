@@ -53,11 +53,23 @@
         </div>-->
         <!-- // search -->
 
-        <router-link tag="button" class="mdl-button mdl-js-button mdl-button--icon" :to="{ name: 'settings' }">
+        <!-- <router-link tag="button" class="mdl-button mdl-js-button mdl-button--icon" :to="{ name: 'settings' }">
           <i class="material-icons">settings</i>
         </router-link>
+ -->
+        <button id="demo-menu-lower-right"
+                class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">more_vert</i>
+        </button>
 
-        <div class="mdl-layout-icon"></div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-lower-right">
+          <li class="mdl-menu__item">Add note</li>
+          <li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Delete note</li>
+          <router-link tag="li" class="mdl-menu__item" to="/">Start</router-link>
+          <router-link tag="li" class="mdl-menu__item" :to="{ name: 'debug' }">Debug</router-link>
+          <router-link tag="li" class="mdl-menu__item" :to="{ name: 'settings' }">Settings</router-link>
+        </ul>
 
       </div>
     </header>
