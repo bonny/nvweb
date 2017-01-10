@@ -40,6 +40,13 @@
           <label v-mdl class="mdl-textfield__label" for="sidebarSearch">Search or Create</label>
         </div>
 
+        <span v-if="searchText && !this.$store.state.currentNote.id">
+          <code>&lt;Enter&gt;</code> to create new note
+        </span>
+        <span v-else>
+          {{this.$store.state.notes.length}} notes
+        </span>
+
     </div>
 
     <NotesList v-bind:searchText="searchText"></NotesList>
@@ -51,6 +58,7 @@
 <script>
 
 import _ from 'lodash'
+import db from '../db.js'
 import NotesList from '../components/NotesList.vue'
 
 export default {
@@ -73,16 +81,36 @@ export default {
 
     },
     // edit currenly selected note
+    // or create new if no note in edit
     editNote (e) {
       // console.log('emit NoteSelectedInNotesListGoEdit', e)
 
       let selectedElm = document.querySelectorAll('.mdl-list__item--selected')
 
-      if (!selectedElm.length) {
+      if (selectedElm.length) {
+        // note selected, go edit it
+        this.$root.$emit('NoteSelectedInNotesListGoEdit', selectedElm[0], selectedElm[0].dataset.noteid)
+        return
+      } else if (this.searchText.trim()) {
+        // note note selected, create a new
+        console.log('create new note')
+
+        // add to db, set as curret
+        db.notes.put({
+          name: this.searchText,
+          text: '',
+          dateModified: Date.now()
+        }).then(() => {
+          console.log('note added')
+          // add to notes list
+          // clear search
+          // to edit
+
+        })
+
         return
       }
 
-      this.$root.$emit('NoteSelectedInNotesListGoEdit', selectedElm[0], selectedElm[0].dataset.noteid)
     },
     searchNotes: _.debounce (function(e) {
 
