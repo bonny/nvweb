@@ -19,6 +19,19 @@
     padding: 0 10px;
   }
 
+  .sidebarSearch__infotext {
+    top: -14px;
+    margin-right: 10px;
+    display: block;
+    position: relative;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    color: rgba(0,0,0,.54);
+  }
+
   @media screen and (max-width: 1024px) {
     .mdl-layout--fixed-drawer>.mdl-layout__content {
       margin-left: 0;
@@ -40,10 +53,10 @@
           <label v-mdl class="mdl-textfield__label" for="sidebarSearch">Search or Create</label>
         </div>
 
-        <span v-if="searchText && !this.$store.state.currentNote.id">
+        <span v-if="searchText && !this.$store.state.currentNote.id" class="sidebarSearch__infotext">
           <code>&lt;Enter&gt;</code> to create new note
         </span>
-        <span v-else>
+        <span v-else class="sidebarSearch__infotext">
           {{this.$store.state.notes.length}} notes
         </span>
 
