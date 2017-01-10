@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from './db.js'
