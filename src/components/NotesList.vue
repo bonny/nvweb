@@ -27,8 +27,11 @@
     cursor: pointer;
   }
 
-  .mdl-list__item:focus,
   .mdl-list__item:hover {
+    background-color: #f5f5f5;
+  }
+
+  .mdl-list__item:focus {
     background: #eee;
   }
 
@@ -112,7 +115,17 @@ export default {
     notes () {
       let notes = this.$store.state.notes
       console.log('searchText', this.searchText)
+
       if (this.searchText) {
+
+        // set no note as current note
+        if (this.searchText !== this.prevSearchText) {
+          this.$store.commit({
+            type: 'setCurrentNote',
+            note: {}
+          })
+        }
+
         let options = {
           // include: ['score', 'matches'],
           keys: ['name', 'text'],
@@ -129,8 +142,9 @@ export default {
 
         var fuse = new Fuse(notes, options)
 
-        notes = fuse.search(this.searchText)
+        notes = fuse.search(this.searchText.trim())
         // console.log('notes searched', notes)
+        this.prevSearchText = this.searchText.trim()
       }
 
       return notes
@@ -144,7 +158,8 @@ export default {
   },
   data: function () {
     return {
-      apa: 'gorilla'
+      apa: 'gorilla',
+      prevSearchText: null
     }
   },
   mounted () {
@@ -195,6 +210,8 @@ export default {
       return note.dateModified
     },
     navNotesWithKeyboard (e) {
+
+      // console.log('navNotesWithKeyboard', e)
 
       let activeElm = document.querySelector('.mdl-list--notes .mdl-list__item--selected')
       let lis = document.querySelectorAll('.mdl-list--notes .mdl-list__item')
