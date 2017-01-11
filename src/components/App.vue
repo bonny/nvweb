@@ -64,7 +64,7 @@
 
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-right">
-          <li class="mdl-menu__item">Add note</li>
+          <li class="mdl-menu__item" v-on:click="addNewNote('New note ' + Date.now())">Add note</li>
           <li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Delete note</li>
           <router-link tag="li" class="mdl-menu__item" to="/">Start</router-link>
           <router-link tag="li" class="mdl-menu__item" :to="{ name: 'debug' }">Debug</router-link>
@@ -94,11 +94,12 @@
 
 <script>
 
-// import config from '../config.js'
 import Sidebar from '../components/Sidebar.vue'
+import Mixins from '../mixins.js'
 
 export default {
   name: 'app_vue',
+  mixins: [Mixins],
   mounted () {
     this.boot()
   },
@@ -123,8 +124,6 @@ export default {
   methods: {
     // when app is mounted we boot by loading options and notes from db
     boot () {
-      // console.log('app boot begin')
-
       this.$store.dispatch({
         type: 'loadOptionsFromDB'
       }).then(() => {
@@ -132,7 +131,7 @@ export default {
         this.$store.dispatch({
           type: 'loadNotesFromDB'
         }).then(() => {
-          console.log('app boot done')
+          // console.log('app boot done')
         })
       })
 
@@ -152,12 +151,6 @@ export default {
 
       });
 
-    },
-    // when user presses escape then focus seach/edit field
-    focusSearch () {
-      let sidebarSearch = document.getElementById("sidebarSearch")
-      sidebarSearch.focus()
-      sidebarSearch.select()
     }
   }
 }

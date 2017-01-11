@@ -107,14 +107,16 @@
 <script>
 
 var Fuse = require('fuse.js')
+import Mixins from '../mixins.js'
 
 export default {
   name: "NotesList",
+  mixins: [Mixins],
   props: ['searchText'],
   computed: {
     notes () {
       let notes = this.$store.state.notes
-      console.log('searchText', this.searchText)
+      // console.log('searchText', this.searchText)
 
       if (this.searchText) {
 
@@ -201,7 +203,7 @@ export default {
         }
       })
 
-      this.$parent.$parent.focusSearch()
+      this.focusSearch()
 
     },
     humanDate(note) {

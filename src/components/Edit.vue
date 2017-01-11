@@ -53,9 +53,11 @@
 
 import _ from 'lodash'
 import db from '../db.js'
+import Mixins from '../mixins.js'
 
 export default {
   name: 'edit',
+  mixins: [Mixins],
   mounted () {
     console.log('edit mounted', this.$route.params.noteID)
     this.editNote(this.$route.params.noteID)

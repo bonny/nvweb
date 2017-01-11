@@ -73,9 +73,11 @@
 import _ from 'lodash'
 import db from '../db.js'
 import NotesList from '../components/NotesList.vue'
+import Mixins from '../mixins.js'
 
 export default {
   props: ["title"],
+  mixins: [Mixins],
   components: {
     NotesList
   },
@@ -113,29 +115,6 @@ export default {
         this.addNewNote(searchText)
 
       }
-
-    },
-    addNewNote (title) {
-
-      // Add new note to db
-      let newNote = {
-        name: title,
-        text: '',
-        dateModified: Date.now()
-      }
-
-      db.notes.put(newNote).then((newNoteID) => {
-        // Add new note to notes list
-        console.log('note added', newNote)
-        
-        this.$store.state.notes.unshift(newNote)
-
-        // Edit and focus new note
-        this.$root.$emit('NoteSelectedInNotesListGoEdit', newNote.id)
-      
-        return
-
-      })
 
     },
     searchNotes: _.debounce (function(e) {
