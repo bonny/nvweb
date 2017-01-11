@@ -158,16 +158,15 @@ export default {
   },
   data: function () {
     return {
-      apa: 'gorilla',
       prevSearchText: null
     }
   },
   mounted () {
-    this.$root.$on('NoteSelectedInNotesList', (elm, noteID) => {
+    this.$root.$on('NoteSelectedInNotesList', (noteID) => {
       this.viewNote(noteID)
     })
 
-    this.$root.$on('NoteSelectedInNotesListGoEdit', (elm, noteID) => {
+    this.$root.$on('NoteSelectedInNotesListGoEdit', (noteID) => {
       this.editNote(noteID)
     })
 
@@ -178,7 +177,6 @@ export default {
   },
   methods: {
     editNote (noteID) {
-
       // close drawer on small screens
       let d = document.querySelector('.mdl-layout')
       if (d.classList.contains("is-small-screen")) {
@@ -253,7 +251,7 @@ export default {
         let noteID = parseInt(lis[elmIndexToSelect].dataset.noteid);
 
         // get note id from data attr and pass
-        this.$root.$emit('NoteSelectedInNotesList', lis[elmIndexToSelect], noteID)
+        this.$root.$emit('NoteSelectedInNotesList', noteID)
       }
 
       e.preventDefault()
