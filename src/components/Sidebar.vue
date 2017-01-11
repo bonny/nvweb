@@ -12,7 +12,7 @@
   }
 
   .mdl-textfield--sidebarSearch {
-    /*width: auto;*/
+    width: 100%;
   }
 
   .sidebarSearchWrap {
@@ -99,30 +99,43 @@ export default {
       // console.log('emit NoteSelectedInNotesListGoEdit', e)
 
       let selectedElm = document.querySelectorAll('.mdl-list__item--selected')
+      let searchText = this.searchText.trim()
 
       if (selectedElm.length) {
         // note selected, go edit it
-        this.$root.$emit('NoteSelectedInNotesListGoEdit', selectedElm[0], selectedElm[0].dataset.noteid)
+        this.$root.$emit('NoteSelectedInNotesListGoEdit', selectedElm[0].dataset.noteid)
         return
-      } else if (this.searchText.trim()) {
+      } else if (searchText) {
         // note note selected, create a new
+        // @TODO: move this to own function so we can call same thing from menu
         console.log('create new note')
 
-        // add to db, set as curret
-        db.notes.put({
-          name: this.searchText,
-          text: '',
-          dateModified: Date.now()
-        }).then(() => {
-          console.log('note added')
-          // add to notes list
-          // clear search
-          // to edit
+        this.addNewNote(searchText)
 
-        })
-
-        return
       }
+
+    },
+    addNewNote (title) {
+
+      // Add new note to db
+      let newNote = {
+        name: title,
+        text: '',
+        dateModified: Date.now()
+      }
+
+      db.notes.put(newNote).then((newNoteID) => {
+        // Add new note to notes list
+        console.log('note added', newNote)
+        
+        this.$store.state.notes.unshift(newNote)
+
+        // Edit and focus new note
+        this.$root.$emit('NoteSelectedInNotesListGoEdit', newNote.id)
+      
+        return
+
+      })
 
     },
     searchNotes: _.debounce (function(e) {
@@ -131,7 +144,7 @@ export default {
       // console.log('maybe search notes for', searchText, this)
       this.searchText = searchText
 
-    }, 100)
+    }, 250)
   }
 }
 
