@@ -1,6 +1,6 @@
 
 import Dexie from 'dexie'
-let faker = require('faker')
+// let faker = require('faker')
 
 let db = new Dexie('MyDatabase')
 
@@ -9,9 +9,18 @@ db.version(1).stores({
   notes: '++id,dateModified'
 })
 
+db.version(2).stores({
+  notes: '++id,dateModified,title'
+})
+
+db.version(3).stores({
+  notes: '++id,dateModified,name'
+})
+
 // Init DB with some default statuses:
 // db.on('populate', function () {
-  // for (let i = 0; i < 5; i++) {
+// for (let i = 0; i < 5; i++) {
+/*
 let notesToAdd = [
   {
     name: faker.lorem.sentences(2),
@@ -22,6 +31,7 @@ let notesToAdd = [
     }
   }
 ]
+*/
 
 // db.notes.bulkPut(notesToAdd)
   // }
