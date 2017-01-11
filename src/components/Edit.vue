@@ -41,7 +41,7 @@
       <label v-if="!noteText" v-mdl class="mdl-textfield__label" for="editText">Edit text...</label>
       </div> -->
 
-      <textarea class="editText" rows="10" id="editText" v-model="noteText" @input="update"></textarea>
+      <textarea :placeholder="noteText ? '' : 'Enter text...'" class="editText" rows="10" id="editText" v-model="noteText" @input="update"></textarea>
 
     </div>
 
@@ -106,6 +106,7 @@ export default {
         // @TODO: use nextTick or something here? timeout feels very dirty
         if (this.$route.params.focusText) {
           setTimeout(function() {
+            // console.log('set focus')
             var el = document.getElementById('editText')
             el.setSelectionRange(0,0)
             el.focus()
