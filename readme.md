@@ -9,7 +9,7 @@ Currently the only way to run this is from the terminal:
 - `$ yarn install`
 - `$ npm start`
 
-Then goto http://localhost:9966/ in your web browser.
+Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 
 
