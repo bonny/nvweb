@@ -1,0 +1,2 @@
+web: heroku-buildpack-static
+
