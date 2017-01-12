@@ -42,7 +42,7 @@ var mixins = {
       })
     },
     /**
-     * Close the drawer if it is opneed
+     * Close drawer/sidebar if it is opneed
      */
     closeDrawerIfOpened () {
 
@@ -50,6 +50,18 @@ var mixins = {
       let drawer = document.querySelector('.mdl-layout__drawer')
 
       if (layout.classList.contains("is-small-screen") && drawer.classList.contains("is-visible") ) {
+        layout.MaterialLayout.toggleDrawer()
+      }
+    },
+    /**
+     * Open drawer/sidebar if it is closed
+     */
+    openDrawerIfClosed () {
+
+      let layout = document.querySelector('.mdl-layout')
+      let drawer = document.querySelector('.mdl-layout__drawer')
+
+      if (layout.classList.contains("is-small-screen") && ! drawer.classList.contains("is-visible") ) {
         layout.MaterialLayout.toggleDrawer()
       }
     }

@@ -138,9 +138,10 @@ export default {
       // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
       window.addEventListener('keydown', (event) => {
 
-        // If down arrow was pressed or CMD + l = focus search input
+        // If down arrow was pressed or CMD + L = focus search input
         if (event.key == 'Escape' || (event.metaKey && event.key === 'l')) {
           this.focusSearch()
+          this.openDrawerIfClosed()
           event.preventDefault()
         }
 
