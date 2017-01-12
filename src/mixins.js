@@ -40,8 +40,20 @@ var mixins = {
 
         return
       })
+    },
+    /**
+     * Close the drawer if it is opneed
+     */
+    closeDrawerIfOpened () {
+
+      let layout = document.querySelector('.mdl-layout')
+      let drawer = document.querySelector('.mdl-layout__drawer')
+
+      if (layout.classList.contains("is-small-screen") && drawer.classList.contains("is-visible") ) {
+        layout.MaterialLayout.toggleDrawer()
+      }
     }
-  }
+  } // methods
 }
 
 module.exports = mixins
