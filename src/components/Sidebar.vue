@@ -46,7 +46,7 @@
     <div class="sidebarSearchWrap">
 
         <div v-mdl class="mdl-textfield mdl-js-textfield mdl-textfield--sidebarSearch">
-          <input v-mdl class="mdl-textfield__input" type="text" id="sidebarSearch"
+          <input v-mdl class="mdl-textfield__input" type="search" id="sidebarSearch"
                  v-on:keyup.enter="editNote"
                  v-on:keyup="searchNotes"
           >
@@ -81,9 +81,18 @@ export default {
   components: {
     NotesList
   },
+  mounted () {
+    this.elmSearch = document.getElementById('sidebarSearch')
+
+    // Fired when pressing enter in search field or when clicking the clear button
+    this.elmSearch.addEventListener('search', this.searchNotes);
+
+  },
   data () {
+    console.log('data')
     return {
-      searchText: ''
+      searchText: '',
+      elmSearch: null
     }
   },
   methods: {
@@ -97,7 +106,9 @@ export default {
     },
     // edit currenly selected note
     // or create new if no note in edit
+    // called from search box when pressing enter
     editNote (e) {
+
       // console.log('emit NoteSelectedInNotesListGoEdit', e)
 
       let selectedElm = document.querySelectorAll('.mdl-list__item--selected')
@@ -119,8 +130,8 @@ export default {
     },
     searchNotes: _.debounce (function(e) {
 
-      let searchText = e.target.value
-      // console.log('maybe search notes for', searchText, this)
+      let searchText = this.elmSearch.value
+      // console.log('search notes for', searchText, this)
       this.searchText = searchText
 
     }, 250)
