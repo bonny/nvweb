@@ -89,7 +89,6 @@ export default {
 
   },
   data () {
-    console.log('data')
     return {
       searchText: '',
       elmSearch: null

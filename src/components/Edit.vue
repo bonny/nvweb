@@ -32,15 +32,6 @@
 
     <div class="mdl-cell mdl-cell--12-col">
 
-      <!-- <p>Editing note with id <code>{{this.$store.state.currentNote.id}}</code></p> -->
-      <!-- <p>Note name: {{this.$store.state.currentNote.name}}</p> -->
-      <!-- <p>Preview text: <code>{{this.$store.state.currentNote.previewText}}</code></p> -->
-
-      <!-- <div v-mdl class="mdl-textfield mdl-js-textfield mdl-textfield--editText">
-      <textarea v-mdl class="mdl-textfield__input" type="text" rows="10" id="editText" v-model="noteText" @input="update"></textarea>
-      <label v-if="!noteText" v-mdl class="mdl-textfield__label" for="editText">Edit text...</label>
-      </div> -->
-
       <textarea :placeholder="noteText ? '' : 'Enter text...'" class="editText" rows="10" id="editText" v-model="noteText" @input="update"></textarea>
 
     </div>

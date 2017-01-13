@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    appTitle: 'web nv',
+    appTitle: 'nvweb',
     options: {
       dropboxAuthToken: null,
       dropboxNotesFolderPath: null
@@ -64,6 +64,7 @@ const store = new Vuex.Store({
     setSingleNote (state, payload) {
       // find note by id
       // console.log('setSingleNote payload.note', payload.note)
+      // @TODO: make function of this, get note from state by note id
       let note = _.find(state.notes, (val) => {
         return val.id === payload.note.id
       })
