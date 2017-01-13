@@ -78,6 +78,28 @@ var mixins = {
       if (layout.classList.contains('is-small-screen') && !drawer.classList.contains('is-visible')) {
         layout.MaterialLayout.toggleDrawer()
       }
+    },
+    deleteNote () {
+      if (!window.confirm(`Delete note "${this.$store.state.currentNote.name}"?`)) {
+        return
+      }
+
+      // console.log('deleteNote with id', this.$store.state.currentNote.id)
+
+      db.notes.delete(this.$store.state.currentNote.id).then(() => {
+        // console.log('note deleted')
+
+        let noteIndex = _.findIndex(this.$store.state.notes, (val) => {
+          return val.id === this.$store.state.currentNote.id
+        })
+
+        this.$store.state.notes.splice(noteIndex, 1)
+
+        // console.log('deleted note index in current state', noteIndex)
+      })
+
+      // set current note to nothing
+      // delete from db
     }
   } // methods
 }

@@ -65,7 +65,7 @@
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-right">
           <li class="mdl-menu__item" v-on:click="addNewNote('New note')">Add note</li>
-          <li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Delete note</li>
+          <li v-bind:disabled="deleteDisabled" class="mdl-menu__item mdl-menu__item--full-bleed-divider" v-on:click="deleteNote()">Delete note</li>
           <router-link tag="li" class="mdl-menu__item" to="/">Start</router-link>
           <router-link tag="li" class="mdl-menu__item" :to="{ name: 'debug' }">Debug</router-link>
           <router-link tag="li" class="mdl-menu__item" :to="{ name: 'settings' }">Settings</router-link>
@@ -110,11 +110,14 @@ export default {
   },
   computed: {
 
-    appTitle() {
+    appTitle () {
       return this.$store.state.currentNote.name ? this.$store.state.currentNote.name : this.$store.state.appTitle
     },
-    sidebarTitle() {
+    sidebarTitle () {
       return 'Notes'
+    },
+    deleteDisabled () {
+      return ! this.$store.state.currentNote.id
     }
 
   },
