@@ -70,6 +70,7 @@ const store = new Vuex.Store({
 
       if (note) {
         note.text = payload.note.text
+        note.dateModified = payload.note.dateModified
       }
     }
   },

@@ -64,7 +64,7 @@
 
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-right">
-          <li class="mdl-menu__item" v-on:click="addNewNote('New note ' + Date.now())">Add note</li>
+          <li class="mdl-menu__item" v-on:click="addNewNote('New note')">Add note</li>
           <li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Delete note</li>
           <router-link tag="li" class="mdl-menu__item" to="/">Start</router-link>
           <router-link tag="li" class="mdl-menu__item" :to="{ name: 'debug' }">Debug</router-link>

@@ -92,7 +92,7 @@ export default {
     }
   },
   methods: {
-    // load note from db
+    // edit note = load note from db, update textarea
     editNote (noteID) {
       // noteID must be integer
       noteID = parseInt(noteID)
@@ -122,9 +122,6 @@ export default {
     update: _.debounce (function (e) {
       // console.log('update in db', this.$store.state.currentNote.id)
 
-      //this.$store.state.currentNote.text = text
-      //this.$store.state.currentNote.previewText = text
-
       let noteText = e.target.value
       let noteID = this.$store.state.currentNote.id
 
@@ -138,12 +135,13 @@ export default {
           type: 'setSingleNote',
           note: {
             text: noteText,
-            id: noteID
+            id: noteID,
+            dateModified: Date.now()
           }
         })
       })
 
-      //console.log('on update', e.target.value, this.$store.state.currentNote.text)
+      // console.log('on update', e.target.value, this.$store.state.currentNote.text)
 
     }, 500)
   },
@@ -156,32 +154,6 @@ export default {
     noteText: function(newNoteText) {
       // console.log('noteText changed', newNoteText)
     }
-  },
-  updated (e) {
-
-    /*
-    var el = document.getElementById('editText')
-    el.focus()
-    el.setSelectionRange(1,10)
-    */
-
-  },
-  /*
-  beforeRouteEnter (to, from, next) {
-    if (from.path == "/" && !from.name) {
-      // We are coming from a fresh reload, need to wait for db and notes to be loaded
-      console.log('edit beforeRouteEnter', to, from)
-      setTimeout(() => {
-        console.log('go on after timeout')
-        next((vm) => {
-          console.log('go on inside next', vm)
-        })
-      }, 0)
-    } else {
-      next(true)
-    }
-    // next(false)
   }
-  */
 }
 </script>
