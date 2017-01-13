@@ -16,8 +16,7 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 ## Soon
 
-- skapa
- - inte kunna skapa med samma namn som existerande, pga dropbox
+- Vid edit: ändra dateModified
 
 - radera note
 
