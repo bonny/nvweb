@@ -75,7 +75,7 @@
 
       <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
           v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
-          v-on:click="viewNote(note.id)"
+          v-on:click="editNote(note.id)"
           v-on:keyup.enter="editNote(note.id)"
           :data-noteID="note.id"
           >
@@ -180,10 +180,7 @@ export default {
   methods: {
     editNote (noteID) {
       // close drawer on small screens
-      let d = document.querySelector('.mdl-layout')
-      if (d.classList.contains("is-small-screen")) {
-        d.MaterialLayout.toggleDrawer()
-      }
+      this.closeDrawerIfOpened()
 
       this.$router.push({
         name: 'edit',

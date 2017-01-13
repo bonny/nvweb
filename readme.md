@@ -4,8 +4,9 @@ A web based version of [nv](http://notational.net/)/[nvalt](http://brettterpstra
 
 ## Install / run
 
-Currently the only way to run this is from the terminal:
+Currently the only way to run this is from the terminal.
 
+- Install node and yarn and budo globaly
 - `$ yarn install`
 - `$ npm start`
 
