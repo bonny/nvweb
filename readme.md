@@ -11,7 +11,30 @@ Currently the only way to run this is from the terminal:
 
 Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
+## Todo
 
+## Soon
 
+- skapa
+ - inte kunna skapa med samma namn som existerande, pga dropbox
 
+- radera note
 
+- döpa om note/rubrik/filnamn
+
+- liten notify att den sparats lokalt + när till dropbox
+
+- vid spara = efter kort stund sortera om notelistan så senast ändrade dokument kommer överst
+
+- synka med dropbox
+
+## Later
+
+- Markdown: 
+  https://www.npmjs.com/package/vue-markdown
+
+- https://markdown-it.github.io/
+
+- komma ihåg markörposition/markering
+
+- export-funktion, typ till json
