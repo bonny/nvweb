@@ -1,7 +1,9 @@
 <style>
   .mdl-layout__drawer {
-    width: 340px;
-    transform: translateX(-350px)
+    max-width: 340px;
+    width: calc(100vw - 50px);
+    /*transform: translateX(calc(-100vw - 60px))*/
+    transform: translateX(-100vw)
   }
   .mdl-layout--fixed-drawer>.mdl-layout__content {
     margin-left: 340px;
