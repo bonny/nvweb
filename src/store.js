@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    appTitle: 'nvweb',
+    appTitle: 'nvweb 🚀 👾',
     options: {
       dropboxAuthToken: null,
       dropboxNotesFolderPath: null
