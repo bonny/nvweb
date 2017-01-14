@@ -16,10 +16,6 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 ## Soon
 
-- Vid edit: ändra dateModified
-
-- radera note
-
 - döpa om note/rubrik/filnamn
 
 - liten notify att den sparats lokalt + när till dropbox
