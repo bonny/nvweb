@@ -81,11 +81,26 @@ let router = require('../router.js')
 export default {
   mixins: [Mixins],
   created () {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.checkForDropboxOAuthCallback()
 
-     // fetch the data when the view is created and the data is
-     // already being observed
-     this.checkForDropboxOAuthCallback()
+    // No note in edit if we are viewing home
+    if (this.$store.state.currentNote.id) {
+      this.$store.commit({
+        type: 'setCurrentNote',
+        note: {
+          id: null,
+          name: null,
+          text: null,
+          dateModified: null
+        }
+      })
+    }
 
+   },
+   mounted () {
+    // console.log('home mounted', this.$store.state)
    },
    data () {
     return {}
