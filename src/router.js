@@ -24,6 +24,11 @@ const routes = [
     name: 'debug'
   },
   {
+    path: '/',
+    component: Default,
+    name: 'home'
+  },
+  {
     path: '*',
     component: Default,
     name: 'default'

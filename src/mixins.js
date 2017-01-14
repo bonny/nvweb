@@ -95,6 +95,16 @@ var mixins = {
 
         this.$store.state.notes.splice(noteIndex, 1)
 
+        // Remove current note from state
+
+        // Redirect to home, with message
+        this.$router.push({
+          name: 'home',
+          params: {
+            fromDeleted: true
+          }
+        })
+
         // console.log('deleted note index in current state', noteIndex)
       })
 

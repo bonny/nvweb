@@ -140,11 +140,23 @@ export default {
 
       // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
       window.addEventListener('keydown', (event) => {
-
+        console.log(event)
         // If down arrow was pressed or CMD + L = focus search input
         if (event.key == 'Escape' || (event.metaKey && event.key === 'l')) {
           this.focusSearch()
           this.openDrawerIfClosed()
+          event.preventDefault()
+        }
+
+        // If CMD + delete = delete note
+        if (event.key == 'Backspace' && event.metaKey) {
+          this.deleteNote()
+          event.preventDefault()
+        }
+
+        // If CMD + C (not CMD + N because browser intercepts that combo) = new note
+        if (event.key == 'C' && event.metaKey) {
+          this.addNewNote('New note from keyboard')
           event.preventDefault()
         }
 

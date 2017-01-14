@@ -50,7 +50,7 @@ export default {
   name: 'edit',
   mixins: [Mixins],
   mounted () {
-    console.log('edit mounted', this.$route.params.noteID)
+    // console.log('edit mounted', this.$route.params.noteID)
     this.editNote(this.$route.params.noteID)
   },
   /*created () {

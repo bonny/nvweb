@@ -4,7 +4,9 @@
 
     <div class="mdl-cell mdl-cell--12-col">
 
-      <h1>nvweb</h1>
+      <div v-if="this.$route.params.fromDeleted">
+        <h3>Note deleted</h3>
+      </div>
 
     </div>
 
@@ -23,6 +25,12 @@ export default {
      // fetch the data when the view is created and the data is
      // already being observed
      this.checkForDropboxOAuthCallback()
+
+   },
+   data () {
+    return {}
+   },
+   computed: {
 
    },
    methods: {
