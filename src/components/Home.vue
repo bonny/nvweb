@@ -18,10 +18,11 @@
 
     <div class="mdl-cell mdl-cell--12-col">
 
+      <!--
       <div v-if="this.$route.params.fromDeleted">
         <h3>Note deleted</h3>
       </div>
-
+      -->
       <div class="mdl-card mdl-shadow--2dp mdl-card--recentNotes">
 
         <div class="mdl-card__title mdl-card--border">
