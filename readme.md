@@ -14,9 +14,11 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 ## Todo
 
-## Soon
+### Soon
 
 - döpa om note/rubrik/filnamn
+
+- ikon - rocket-emoji eller liknande 🚀 👾
 
 - liten notify att den sparats lokalt + när till dropbox
 
@@ -24,7 +26,7 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 - synka med dropbox
 
-## Later
+### Later
 
 - Markdown: 
   https://www.npmjs.com/package/vue-markdown
