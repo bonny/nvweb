@@ -8,7 +8,8 @@
     "watch": "budo src/index.js:bundle.js --dir=dist --live",
     "start": "npm run watch",
     "build": "browserify --entry=src/index.js | uglifyjs --compress > dist/bundle.js && npm run generateServiceWorker",
-    "generateServiceWorker": "sw-precache --root=dist --static-file-globs='dist/**/*.html'"
+    "generateServiceWorker": "sw-precache --root=dist --static-file-globs='dist/**/*.html'",
+    "dokku": "git push dokku master"
   },
   "author": "",
   "license": "ISC",
