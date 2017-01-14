@@ -155,10 +155,12 @@ export default {
         }
 
         // If CMD + C (not CMD + N because browser intercepts that combo) = new note
+        /*
         if (event.key == 'C' && event.metaKey) {
           this.addNewNote('New note from keyboard')
           event.preventDefault()
         }
+        */
 
         // If CMD + j/k = maybe move next/prev note
         if (event.metaKey && (event.key == 'j' || event.key == 'k')) {

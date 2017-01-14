@@ -111,7 +111,13 @@ var mixins = {
       // set current note to nothing
       // delete from db
     }
-  } // methods
+  }, // methods
+  filters: {
+    trim: function (value) {
+      if (!value) return ''
+      return value.substr(0, 75)
+    }
+  }
 }
 
 module.exports = mixins

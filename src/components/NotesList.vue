@@ -1,4 +1,4 @@
-<style scoped>
+<style>
 
   .NoteList-noteName {
     font-size: 1rem;
@@ -81,15 +81,8 @@
           >
 
         <span class="mdl-list__item-primary-content">
-
-          <span class="NoteList-noteName">
-            {{note.name}}
-          </span>
-
-          <span class="mdl-list__item-sub-title">
-            {{note.text | trim}}
-          </span>
-
+          <span class="NoteList-noteName">{{note.name}}</span>
+          <span class="mdl-list__item-sub-title">{{note.text | trim}}</span>
         </span>
 
         <span class="mdl-list__item-secondary-content">
@@ -151,12 +144,6 @@ export default {
 
       return notes
     }
-  },
-  filters: {
-     trim: function (value) {
-       if (!value) return ''
-       return value.substr(0, 75)
-     }
   },
   data: function () {
     return {
