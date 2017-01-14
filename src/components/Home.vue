@@ -1,7 +1,15 @@
 <style>
+
   .mdl-card--recentNotes {
     min-height: 0;
   }
+
+  @media screen and (max-width: 1024px) {
+    .mdl-card--recentNotes {
+      width: auto;
+    }
+  }
+
 </style>
 
 <template>
