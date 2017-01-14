@@ -1,7 +1,7 @@
 import Settings from './components/Settings.vue'
 import Edit from './components/Edit.vue'
 import Debug from './components/Debug.vue'
-import Default from './components/Default.vue'
+import Home from './components/Home.vue'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -25,12 +25,12 @@ const routes = [
   },
   {
     path: '/',
-    component: Default,
+    component: Home,
     name: 'home'
   },
   {
     path: '*',
-    component: Default,
+    component: Home,
     name: 'default'
   }
 ]
