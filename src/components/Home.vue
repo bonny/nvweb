@@ -15,8 +15,11 @@
       </div>
 
       <div class="mdl-card mdl-shadow--2dp mdl-card--recentNotes">
+
         <div class="mdl-card__title mdl-card--border">
-          <h2 class="mdl-card__title-text">Recent notes</h2>
+          <h2 class="mdl-card__title-text">
+            Recent notes
+          </h2>
         </div>
         
         <div class="xmdl-card__supporting-text">
@@ -44,8 +47,15 @@
         </div>
 
         <div class="mdl-card__actions mdl-card--border">
-          <button v-mdl class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">New note</button>
+          <button 
+            v-mdl 
+            class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+            v-on:click="addNewNote('New note')"
+            >
+            New note
+          </button>
         </div>
+
       </div>
 
     </div>
