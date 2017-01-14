@@ -88,6 +88,11 @@
       </div>
     </main>
 
+    <div v-mdl id="messageToast" class="mdl-js-snackbar mdl-snackbar">
+      <div v-mdl class="mdl-snackbar__text"></div>
+      <button v-mdl class="mdl-snackbar__action" type="button"></button>
+    </div>
+
   </div>
 
 </template>
@@ -140,7 +145,7 @@ export default {
 
       // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
       window.addEventListener('keydown', (event) => {
-        console.log(event)
+        // console.log(event)
         // If down arrow was pressed or CMD + L = focus search input
         if (event.key == 'Escape' || (event.metaKey && event.key === 'l')) {
           this.focusSearch()
@@ -167,7 +172,7 @@ export default {
           this.$root.$emit('NotelistMaybeKeyboardNavNotes', event)
         }
 
-      }, false);
+      }, false); // add keyboard listeners
 
     }
   }

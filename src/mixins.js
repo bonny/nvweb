@@ -55,6 +55,8 @@ var mixins = {
 
           return
         })
+      }).then(() => {
+        this.showSnackMessage('New new added')
       })
     },
     /**
@@ -108,8 +110,16 @@ var mixins = {
         // console.log('deleted note index in current state', noteIndex)
       })
 
-      // set current note to nothing
-      // delete from db
+      this.showSnackMessage('Note deleted')
+    },
+    showSnackMessage (message) {
+      let data = {
+        message,
+        timeout: 3000
+      }
+
+      let messageToastElm = document.getElementById('messageToast')
+      messageToastElm.MaterialSnackbar.showSnackbar(data)
     }
   }, // methods
   filters: {
