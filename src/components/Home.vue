@@ -33,6 +33,10 @@
         
         <div class="xmdl-card__supporting-text">
 
+          <div v-if="!recentNotes.length">
+            No recent notes yet.
+          </div>
+
           <ul class="mdl-list mdl-list--notes">
 
             <li v-for="note in recentNotes" 
