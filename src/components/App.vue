@@ -245,7 +245,7 @@ export default {
         // console.log('name updated')
       })
 
-    }, 500),
+    }, 250),
   } // methods
 }
 

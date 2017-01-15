@@ -135,7 +135,7 @@ export default {
 
       // console.log('on update', e.target.value, this.$store.state.currentNote.text)
 
-    }, 500)
+    }, 250)
   },
   watch: {
     '$route' (to, from) {
