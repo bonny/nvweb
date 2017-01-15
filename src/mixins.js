@@ -112,6 +112,16 @@ var mixins = {
 
       this.showSnackMessage('Note deleted')
     },
+    editNoteTitle () {
+      let newNoteName = window.prompt('Enter new name of note', this.$store.state.currentNote.name)
+
+      if (newNoteName === null) {
+        return
+      }
+
+      // new name here we go
+      console.log('set new name to', newNoteName)
+    },
     showSnackMessage (message) {
       let data = {
         message,

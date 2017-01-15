@@ -10,12 +10,14 @@
   .mdl-textfield {
     width: 100%;
   }
+  /*
   #editNoteTitle {
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
+  */
 </style>
 
 <template>
@@ -28,7 +30,16 @@
     even in small screens. -->
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">{{appTitle}}</span>
+
+        <span 
+          v-if="!this.$store.state.currentNote.id" 
+          class="mdl-layout-title">{{appTitle}}</span>
+        
+        <span 
+          v-if="this.$store.state.currentNote.id" 
+          v-on:click="editNoteTitle"
+          class="mdl-layout-title">{{this.$store.state.currentNote.name}}</span>
+
         <!-- <span class="mdl-layout-title">
 
           <div v-mdl class="mdl-textfield mdl-js-textfield">
