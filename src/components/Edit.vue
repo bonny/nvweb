@@ -113,12 +113,13 @@ export default {
     update: _.debounce (function (e) {
       // console.log('update in db', this.$store.state.currentNote.id)
 
-      let noteText = e.target.value
       let noteID = this.$store.state.currentNote.id
+      let noteText = e.target.value
+      let noteDateModified = Date.now()
 
       db.notes.update(noteID, {
         text: noteText,
-        dateModified: Date.now()
+        dateModified: noteDateModified
       }).then((numRowsUpdated) => {
         // console.log('note updated, result was', numRowsUpdated)
         // update note in store
@@ -127,7 +128,7 @@ export default {
           note: {
             text: noteText,
             id: noteID,
-            dateModified: Date.now()
+            dateModified: noteDateModified
           }
         })
       })

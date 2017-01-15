@@ -1,4 +1,8 @@
 <style scoped>
+  .mdl-textfield--titleWrap {
+    width: calc(100% - 50px);
+  }
+
   .mdl-layout-title {
     max-width: 85%;
     width: 85%;
@@ -7,9 +11,17 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
+  .mdl-textfield--titleWrap .mdl-textfield__input {
+    max-width: none;
+    width: 100%;
+  }
+  
+  /*
   .mdl-textfield {
     width: 100%;
   }
+  */
   /*
   #editNoteTitle {
     width: 100%;
@@ -42,7 +54,7 @@
  -->
          <div v-mdl 
               v-if="this.$store.state.currentNote.id" 
-              class="mdl-textfield mdl-js-textfield"
+              class="mdl-textfield mdl-js-textfield mdl-textfield--titleWrap"
               >
            <input 
             v-mdl
@@ -50,7 +62,7 @@
             class="mdl-textfield__input mdl-layout-title"
             v-model="currentNoteName"
             xv-model="this.$store.state.currentNote.name"
-            @input="noteTitleUpdated"
+            @input="noteNameUpdated"
             >
         </div>
 
@@ -125,6 +137,7 @@
 <script>
 
 import _ from 'lodash'
+import db from '../db.js'
 import Sidebar from '../components/Sidebar.vue'
 import Mixins from '../mixins.js'
 
@@ -204,9 +217,32 @@ export default {
       }, false); // add keyboard listeners
 
     },
-    noteTitleUpdated: _.debounce (function(e) {
-      console.log('noteTitleUpdated', e.target.value)
-      this.$store.state.currentNote.name = e.target.value
+    noteNameUpdated: _.debounce (function(e) {
+
+      let noteID = this.$store.state.currentNote.id
+      let noteName = e.target.value
+      let noteDateModified = Date.now()
+      
+      this.$store.state.currentNote.name = noteName
+      
+      // console.log('noteNameUpdated', noteName, noteID)
+
+      db.notes.update(noteID, {
+        name: noteName,
+        dateModified: noteDateModified
+      }).then((numRowsUpdated) => {
+        // console.log('note updated, result was', numRowsUpdated)
+        // update note in store
+        this.$store.commit({
+          type: 'setSingleNote',
+          note: {
+            name: noteName,
+            id: noteID,
+            dateModified: noteDateModified
+          }
+        })
+      })
+
     }, 250),
   } // methods
 }
