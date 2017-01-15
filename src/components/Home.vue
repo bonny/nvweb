@@ -31,11 +31,11 @@
           </h2>
         </div>
         
-        <div class="xmdl-card__supporting-text">
-
-          <div v-if="!recentNotes.length" class="mdl-card__supporting-text">
-            No recent notes yet.
-          </div>
+        <div v-if="!recentNotes.length" class="mdl-card__supporting-text">
+          No recent notes yet.
+        </div>
+        
+        <div v-if="recentNotes.length" class="xmdl-card__supporting-text">
 
           <ul class="mdl-list mdl-list--notes">
 
