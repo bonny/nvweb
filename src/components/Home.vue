@@ -33,7 +33,7 @@
         
         <div class="xmdl-card__supporting-text">
 
-          <div v-if="!recentNotes.length">
+          <div v-if="!recentNotes.length" class="mdl-card__supporting-text">
             No recent notes yet.
           </div>
 
