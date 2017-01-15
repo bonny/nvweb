@@ -35,10 +35,24 @@
           v-if="!this.$store.state.currentNote.id" 
           class="mdl-layout-title">{{appTitle}}</span>
         
-        <span 
+<!--         <span 
           v-if="this.$store.state.currentNote.id" 
           v-on:click="editNoteTitle"
           class="mdl-layout-title">{{this.$store.state.currentNote.name}}</span>
+ -->
+         <div v-mdl 
+              v-if="this.$store.state.currentNote.id" 
+              class="mdl-textfield mdl-js-textfield"
+              >
+           <input 
+            v-mdl
+            type="text"
+            class="mdl-textfield__input mdl-layout-title"
+            v-model="currentNoteName"
+            xv-model="this.$store.state.currentNote.name"
+            @input="noteTitleUpdated"
+            >
+        </div>
 
         <!-- <span class="mdl-layout-title">
 
@@ -110,6 +124,7 @@
 
 <script>
 
+import _ from 'lodash'
 import Sidebar from '../components/Sidebar.vue'
 import Mixins from '../mixins.js'
 
@@ -128,6 +143,9 @@ export default {
 
     appTitle () {
       return this.$store.state.currentNote.name ? this.$store.state.currentNote.name : this.$store.state.appTitle
+    },
+    currentNoteName () {
+      return this.$store.state.currentNote.name
     },
     sidebarTitle () {
       return 'Notes'
@@ -185,8 +203,12 @@ export default {
 
       }, false); // add keyboard listeners
 
-    }
-  }
+    },
+    noteTitleUpdated: _.debounce (function(e) {
+      console.log('noteTitleUpdated', e.target.value)
+      this.$store.state.currentNote.name = e.target.value
+    }, 250),
+  } // methods
 }
 
 </script>
