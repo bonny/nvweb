@@ -16,15 +16,11 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 ### Soon
 
-- döpa om note/rubrik/filnamn
-
-- ikon - rocket-emoji eller liknande 🚀 👾
-
-- liten notify att den sparats lokalt + när till dropbox
+- synka med dropbox
 
 - vid spara = efter kort stund sortera om notelistan så senast ändrade dokument kommer överst
 
-- synka med dropbox
+- liten notify att den sparats lokalt + när till dropbox
 
 ### Later
 
@@ -36,3 +32,9 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 - komma ihåg markörposition/markering
 
 - export-funktion, typ till json
+
+- dark/night mode
+
+
+
+
