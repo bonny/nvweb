@@ -65,9 +65,11 @@ const store = new Vuex.Store({
       // find note by id
       // console.log('setSingleNote payload.note', payload.note)
       // @TODO: make function of this, get note from state by note id
-      let note = _.find(state.notes, (val) => {
+      let noteIndex = _.findIndex(state.notes, (val) => {
         return val.id === payload.note.id
       })
+
+      let note = state.notes[noteIndex]
 
       if (note) {
         if (payload.note.name) {
@@ -82,6 +84,10 @@ const store = new Vuex.Store({
           note.dateModified = payload.note.dateModified
         }
       }
+
+      // move note first, no need to sort, it's simply the latest updated
+      state.notes.splice(noteIndex, 1)
+      state.notes.splice(0, 0, note)
     }
   },
   actions: {

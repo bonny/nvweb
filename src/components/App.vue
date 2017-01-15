@@ -233,7 +233,7 @@ export default {
       }).then((numRowsUpdated) => {
         // console.log('note updated, result was', numRowsUpdated)
         // update note in store
-        this.$store.commit({
+        return this.$store.commit({
           type: 'setSingleNote',
           note: {
             name: noteName,
@@ -241,6 +241,8 @@ export default {
             dateModified: noteDateModified
           }
         })
+      }).then(() => {
+        // console.log('name updated')
       })
 
     }, 250),
