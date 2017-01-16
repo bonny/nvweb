@@ -1,5 +1,9 @@
 {
 	"name": "nvweb",
+	"short_name": "nvweb",
+	"description": "nv/nvalt web version",
+	"theme_color": "#3F51B5",
+	"display": "browser",
 	"icons": [
 		{
 			"src": "/icons/android-chrome-192x192.png",
@@ -11,7 +15,5 @@
 			"sizes": "512x512",
 			"type": "image\/png"
 		}
-	],
-	"theme_color": "#ffffff",
-	"display": "standalone"
+	]
 }
