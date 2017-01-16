@@ -14,7 +14,7 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 ## Demo site with app
 
-The app can be seen and tested online at [https://nvweb.eskapism.se](nvweb.eskapism.se).
+The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskapism.se).
 
 ## Todo
 
