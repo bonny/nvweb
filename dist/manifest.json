@@ -2,7 +2,7 @@
 	"name": "nvweb",
 	"short_name": "nvweb",
 	"description": "nv/nvalt web version",
-	"start_url": "./?utm_source=web_app_manifest",
+	"start_url": "/?utm_source=web_app_manifest",
 	"theme_color": "#3F51B5",
 	"display": "browser",
 	"icons": [
