@@ -1,6 +1,6 @@
 {
-	"name": "nvweb",
-	"short_name": "nvweb",
+	"name": "Rocket Notes",
+	"short_name": "Rocket",
 	"description": "nv/nvalt web version",
 	"start_url": "/?utm_source=web_app_manifest",
 	"theme_color": "#3F51B5",

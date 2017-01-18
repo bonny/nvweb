@@ -20,6 +20,8 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 ### Soon
 
+- sometimes create note does not work, desktop + shortcuts seems to be the combo
+
 - synka med dropbox
 
 - vid spara = efter kort stund sortera om notelistan så senast ändrade dokument kommer överst
