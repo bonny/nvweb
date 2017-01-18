@@ -24,6 +24,7 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 	- if exact title match = edit note?
 	- if no exact match = create note?
 	- when searching - de-select current note?
+	- create-message missing with current behavior
 
 - sometimes create note does not work, desktop + shortcuts seems to be the combo
 
