@@ -15,8 +15,17 @@
   .mdl-textfield--titleWrap .mdl-textfield__input {
     max-width: none;
     width: 100%;
+    border-bottom-color: rgba(255,255,255,.35);
+  }
+
+  .mdl-textfield__label {
+    color: rgba(255,255,255,.26);
   }
   
+  .mdl-textfield--titleWrap .mdl-textfield__label:after {
+    background-color: rgba(255,255,255,.75);
+  }
+
   /*
   .mdl-textfield {
     width: 100%;
@@ -59,6 +68,7 @@
             xv-model="this.$store.state.currentNote.name"
             @input="noteNameUpdated"
             >
+            <label class="mdl-textfield__label">Enter note name</label>
         </div>
 
         <!-- <span class="mdl-layout-title">
