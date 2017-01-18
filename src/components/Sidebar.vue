@@ -51,6 +51,7 @@
           <input v-mdl class="mdl-textfield__input" type="search" id="sidebarSearch"
                  v-on:keyup.enter="editNote"
                  v-on:keyup="searchNotes"
+                 tabindex="1" 
           >
           <label v-mdl class="mdl-textfield__label" for="sidebarSearch">Search or Create</label>
         </div>

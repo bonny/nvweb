@@ -32,7 +32,7 @@
 
     <div class="mdl-cell mdl-cell--12-col">
 
-      <textarea :placeholder="noteText ? '' : 'Enter text...'" class="editText" rows="10" id="editText" v-model="noteText" @input="update"></textarea>
+      <textarea :placeholder="noteText ? '' : 'Enter text...'" class="editText" rows="10" id="editText" v-model="noteText" @input="update" tabindex="3"></textarea>
 
     </div>
 

@@ -26,19 +26,6 @@
     background-color: rgba(255,255,255,.75);
   }
 
-  /*
-  .mdl-textfield {
-    width: 100%;
-  }
-  */
-  /*
-  #editNoteTitle {
-    width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  */
 </style>
 
 <template>
@@ -65,40 +52,16 @@
             type="text"
             class="mdl-textfield__input mdl-layout-title"
             v-model="currentNoteName"
+            v-on:keyup.enter="moveFocusToEdit"
             xv-model="this.$store.state.currentNote.name"
             @input="noteNameUpdated"
+            tabindex="2" 
             >
             <label class="mdl-textfield__label">Enter note name</label>
         </div>
 
-        <!-- <span class="mdl-layout-title">
-
-          <div v-mdl class="mdl-textfield mdl-js-textfield">
-            <input v-mdl class="mdl-textfield__input" v-model="appTitle" type="text" id="editNoteTitle">
-          </div>
-
-        </span> -->
         <div class="mdl-layout-spacer"></div>
 
-        <!-- search icon -->
-        <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                    mdl-textfield--floating-label mdl-textfield--align-right">
-
-          <<label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-            <i class="material-icons">search</i>
-          </label>
-
-          <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
-          </div>
-
-        </div>-->
-        <!-- // search -->
-
-        <!-- <router-link tag="button" class="mdl-button mdl-js-button mdl-button--icon" :to="{ name: 'settings' }">
-          <i class="material-icons">settings</i>
-        </router-link>
- -->
         <button id="demo-menu-lower-right"
                 class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">more_vert</i>
@@ -251,6 +214,9 @@ export default {
       })
 
     }, 250),
+    moveFocusToEdit () {
+      this.focusEditTextArea();
+    }
   } // methods
 }
 
