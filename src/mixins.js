@@ -15,6 +15,7 @@ var mixins = {
     },
     // Add new note to db
     addNewNote (title) {
+      console.log('addNewNote()')
       let newNote = {
         name: title,
         text: '',
@@ -23,6 +24,7 @@ var mixins = {
 
       // Check if note with same title exists
       // Get all notes beginning with same title, then loop until unique found
+      console.log('addNote: check for existing note with same name')
       db.notes.where('name').startsWith(newNote.name).toArray().then((notesWithSameBeginning) => {
         // while name not unique keep testing
         let loop = 0
@@ -44,18 +46,21 @@ var mixins = {
 
         return
       }).then(() => {
+        console.log(`addNote: done checking for same name, got name "${newNote.name}"`)
         db.notes.put(newNote).then((newNoteID) => {
           // Add new note to notes list
-          console.log('note added', newNote)
+          console.log('addNote: db.notes.put done', newNote)
 
           this.$store.state.notes.unshift(newNote)
 
           // Edit and focus new note
+          console.log('addNote: emit noteSelected')
           this.$root.$emit('NoteSelectedInNotesListGoEdit', newNote.id)
 
           return
         })
       }).then(() => {
+        console.log('addNote: showSnackMsg')
         this.showSnackMessage('New new added')
       })
     },
