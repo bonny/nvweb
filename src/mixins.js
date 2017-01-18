@@ -12,6 +12,14 @@ var mixins = {
       let sidebarSearch = document.getElementById('sidebarSearch')
       sidebarSearch.focus()
       sidebarSearch.select()
+
+      this.makeNotesListUnselected()
+    },
+    makeNotesListUnselected () {
+      let selectedElm = document.querySelector('.mdl-list--notes .mdl-list__item--selected')
+      if (selectedElm) {
+        selectedElm.classList.remove('mdl-list__item--selected')
+      }
     },
     // Add new note to db
     addNewNote (title) {
