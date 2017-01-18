@@ -12,12 +12,11 @@ var mixins = {
       let sidebarSearch = document.getElementById('sidebarSearch')
       sidebarSearch.focus()
       sidebarSearch.select()
-
-      this.makeNotesListUnselected()
     },
     makeNotesListUnselected () {
       let selectedElm = document.querySelector('.mdl-list--notes .mdl-list__item--selected')
       if (selectedElm) {
+        console.log('makeNotesListUnselected')
         selectedElm.classList.remove('mdl-list__item--selected')
       }
     },

@@ -123,6 +123,10 @@ export default {
           })*/
         }
 
+        // when searching remove any currently selected note in the notes list
+        this.makeNotesListUnselected();
+
+        // @TODO: move to function
         let options = {
           // include: ['score', 'matches'],
           keys: ['name', 'text'],
