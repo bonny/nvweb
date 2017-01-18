@@ -137,6 +137,9 @@ var mixins = {
 
       let messageToastElm = document.getElementById('messageToast')
       messageToastElm.MaterialSnackbar.showSnackbar(data)
+    },
+    focusEditTextArea () {
+      document.getElementById('editText').focus()
     }
   }, // methods
   filters: {
