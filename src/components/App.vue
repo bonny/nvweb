@@ -45,13 +45,8 @@
 
         <span 
           v-if="!this.$store.state.currentNote.id" 
-          class="mdl-layout-title">{{appTitle}}</span>
-        
-<!--         <span 
-          v-if="this.$store.state.currentNote.id" 
-          v-on:click="editNoteTitle"
-          class="mdl-layout-title">{{this.$store.state.currentNote.name}}</span>
- -->
+          class="mdl-layout-title"></span>
+
          <div v-mdl 
               v-if="this.$store.state.currentNote.id" 
               class="mdl-textfield mdl-js-textfield mdl-textfield--titleWrap"
