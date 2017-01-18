@@ -110,15 +110,17 @@ export default {
     notes () {
       let notes = this.$store.state.notes
       // console.log('searchText', this.searchText)
-
+      // this gets triggered even if search text input has not focus
       if (this.searchText) {
+
+        console.log('search for', this.searchText)
 
         // set no note as current note
         if (this.searchText !== this.prevSearchText) {
-          this.$store.commit({
+          /*this.$store.commit({
             type: 'setCurrentNote',
             note: {}
-          })
+          })*/
         }
 
         let options = {
