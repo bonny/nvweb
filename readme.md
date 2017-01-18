@@ -24,9 +24,6 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 - synka med dropbox
 
-- vid spara = efter kort stund sortera om notelistan så senast ändrade dokument kommer överst
-
-- liten notify att den sparats lokalt + när till dropbox
 
 ### Later
 
