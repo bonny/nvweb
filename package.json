@@ -8,7 +8,7 @@
     "watch": "budo src/index.js:bundle.js --dir=dist --live",
     "start": "npm run watch",
     "build": "NODE_ENV=production browserify --entry=src/index.js | uglifyjs -c -m > dist/bundle.js && npm run generateServiceWorker && git add dist/* && git commit -m \"add dist\"",
-    "generateServiceWorker": "sw-precache --root=dist --static-file-globs='dist/**/*.html'",
+    "generateServiceWorker": "sw-precache --config=sw-precache-config.js --verbose",
     "dokku": "git push dokku master"
   },
   "author": "",
