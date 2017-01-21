@@ -109,6 +109,7 @@ export default {
   computed: {
     notes () {
       let notes = this.$store.state.notes
+      this.$store.state.filteredNotes = notes
       // console.log('searchText', this.searchText)
       // this gets triggered even if search text input has not focus
       if (this.searchText) {
@@ -143,12 +144,13 @@ export default {
 
         var fuse = new Fuse(notes, options)
 
-        notes = fuse.search(this.searchText.trim())
+        this.$store.state.filteredNotes = fuse.search(this.searchText.trim())
+
         // console.log('notes searched', notes)
         this.prevSearchText = this.searchText.trim()
       }
 
-      return notes
+      return this.$store.state.filteredNotes
     }
   },
   data: function () {

@@ -15,6 +15,8 @@ const store = new Vuex.Store({
       dropboxNotesFolderPath: null
     },
     notes: [],
+    // notes filtered by search
+    filteredNotes: [],
     /*
     {
       id: 'note1',

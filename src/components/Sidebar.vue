@@ -56,7 +56,7 @@
           <label v-mdl class="mdl-textfield__label" for="sidebarSearch">Search or Create</label>
         </div>
 
-        <span v-if="searchText && !this.$store.state.currentNote.id" class="sidebarSearch__infotext">
+        <span v-if="activateAddNewNote" class="sidebarSearch__infotext">
           <code>&lt;Enter&gt;</code> to create new note
         </span>
         <span v-else class="sidebarSearch__infotext">
@@ -97,6 +97,19 @@ export default {
       elmSearch: null
     }
   },
+  computed: {
+    activateAddNewNote (e) {
+      let selectedElm = document.querySelector('.mdl-list--notes .mdl-list__item--selected')
+      console.log('selectedElm', selectedElm)
+      console.log('this.$store.state.filteredNotes', this.$store.state.filteredNotes)
+      console.log('this.searchText', this.searchText)
+      //if (!selectedElm) {
+        //return true;
+      //}
+      
+      return ! this.$store.state.filteredNotes.length && this.searchText
+    }
+  },
   methods: {
     navNotesWithKeyboard (e) {
 
@@ -111,21 +124,20 @@ export default {
     // called from search box when pressing enter
     editNote (e) {
 
-      // console.log('emit NoteSelectedInNotesListGoEdit', e)
-
       let selectedElm = document.querySelectorAll('.mdl-list__item--selected')
       let searchText = this.searchText.trim()
+      
+      console.log('editNote', e, selectedElm, selectedElm.length)
 
       if (selectedElm.length) {
         // note selected, go edit it
         this.$root.$emit('NoteSelectedInNotesListGoEdit', selectedElm[0].dataset.noteid)
         return
-      } else if (searchText) {
+      } else if (this.elmSearch.value) {
         // note note selected, create a new
         // @TODO: move this to own function so we can call same thing from menu
-        console.log('create new note')
-
-        this.addNewNote(searchText)
+        console.log('create new note with title', this.elmSearch.value)
+        this.addNewNote(this.elmSearch.value)
 
       }
 
