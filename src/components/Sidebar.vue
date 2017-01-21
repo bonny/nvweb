@@ -34,6 +34,14 @@
     color: rgba(0,0,0,.54);
   }
 
+  .mdl-layout__drawer {
+    overflow: hidden;
+  }
+  .sidebarNotesList {
+    height: 100%;
+    overflow: scroll;
+  }
+
   @media screen and (max-width: 1024px) {
     .mdl-layout--fixed-drawer>.mdl-layout__content {
       margin-left: 0;
@@ -65,7 +73,9 @@
 
     </div>
 
-    <NotesList v-bind:searchText="searchText"></NotesList>
+    <div class="sidebarNotesList">
+      <NotesList v-bind:searchText="searchText"></NotesList>
+    </div>
 
   </div>
 

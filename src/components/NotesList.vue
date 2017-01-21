@@ -22,6 +22,10 @@
     /*max-width: calc(100% - 4em);*/
   }
 
+  .mdl-list--notes {
+    margin: 0;
+  }
+
   .mdl-list__item {
     position: relative;
     cursor: pointer;
@@ -69,31 +73,27 @@
 
 <template>
 
-  <div>
+  <ul class="mdl-list mdl-list--notes">
 
-    <ul class="mdl-list mdl-list--notes">
+    <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
+        v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
+        v-on:click="editNote(note.id)"
+        v-on:keyup.enter="editNote(note.id)"
+        :data-noteID="note.id"
+        >
 
-      <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
-          v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
-          v-on:click="editNote(note.id)"
-          v-on:keyup.enter="editNote(note.id)"
-          :data-noteID="note.id"
-          >
+      <span class="mdl-list__item-primary-content">
+        <span class="NoteList-noteName">{{note.name}}</span>
+        <span class="mdl-list__item-sub-title">{{note.text | trim}}</span>
+      </span>
 
-        <span class="mdl-list__item-primary-content">
-          <span class="NoteList-noteName">{{note.name}}</span>
-          <span class="mdl-list__item-sub-title">{{note.text | trim}}</span>
-        </span>
+      <span class="mdl-list__item-secondary-content">
+        <span class="mdl-list__item-secondary-info">{{ note.dateModified | moment('from') }}</span>
+      </span>
 
-        <span class="mdl-list__item-secondary-content">
-          <span class="mdl-list__item-secondary-info">{{ note.dateModified | moment('from') }}</span>
-        </span>
+    </li>
 
-      </li>
-
-    </ul>
-
-  </div>
+  </ul>
 
 </template>
 
