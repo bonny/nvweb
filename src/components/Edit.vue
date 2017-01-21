@@ -12,10 +12,20 @@
   .editText:focus {
     outline: none;
   }
-  .mdl-grid {
-    /*height: calc(100vh - 80px);*/
-    height: 100vh;
-  },
+
+  @media screen and (max-width: 1024px) {
+    .mdl-grid {
+      /* 64px height in desktop, 56px height in mobile */
+      height: calc(100vh - 59px);
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .mdl-grid {
+      /* 64px height in desktop, 56px height in mobile */
+      height: calc(100vh - 67px);
+    }
+  }
+
   .mdl-grid,
   .mdl-cell {
     padding: 0;
