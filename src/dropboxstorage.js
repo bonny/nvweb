@@ -2,6 +2,7 @@
 let Dropbox = require('dropbox')
 import store from './store.js'
 import db from './db.js'
+import _ from 'lodash'
 
 class DropboxStorage {
 
@@ -86,31 +87,39 @@ class DropboxStorage {
   }
 
   /**
-   * Get notes list from the notes folder
+   * Get notes list from the notes folder selected in dropbox
+   * This gets all notes so only run this first time we connect or if we somehow
+   * lose track of cursor
+   *
+   * we also get cursor
+   * how/when use this?
    */
   getNotesList (path) {
     return this.dbx.filesListFolder({
       path: path
+    }).then(FilesMetadata => {
+      // keep only .txt and .md
+      FilesMetadata.entries = this.keepOnlyTextNotes(FilesMetadata.entries)
+
+      // order by date
+      FilesMetadata.entries = this.orderNotesByDate(FilesMetadata.entries)
+
+      return FilesMetadata
     })
   }
 
-  /*
-  getNotesFolder (callback) {
-    db.options.where('key').equals('dropboxNotesFolder').first().then((val) => {
-      // console.log('getNotesFolder returned', val)
-
-      if (val) {
-        this.authToken = val.value
-      }
-
-      if (callback) {
-        callback()
-      }
-    }).catch((err) => {
-      console.log('dropboxNotesFolderChanged catch', err)
+  // keep only .txt and .md
+  keepOnlyTextNotes (arr) {
+    return _.filter(arr, (filevals) => {
+      return filevals.name.match(/.(txt|md)$/)
     })
   }
-  */
+
+  orderNotesByDate (arr) {
+    return arr.sort((b, a) => {
+      return (a.server_modified < b.server_modified) ? -1 : ((a.server_modified > b.server_modified) ? 1 : 0)
+    })
+  }
 
 } // dropboxstorage
 
