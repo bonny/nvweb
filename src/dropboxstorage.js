@@ -13,24 +13,26 @@ class DropboxStorage {
       clientID: store.state.dropbox.appKey
     })
 
-    this.getAuthToken(() => {
-      // console.log('getauthtoken in constructor callback, token is now ', this.authToken)
-      this.reconfig()
+    this.loadedPromise = this.getAuthToken().then((token) => {
+      // console.log('getAuthToken then with token', token)
+      return this.reconfig()
+    }).then(() => {
+      // console.log('reconfig then')
+      // this.loadedPromise = Promise.resolve('loaded yo')
+      this.loadedPromise = Promise.resolve(this.loadedPromise)
     })
-    // this.reconfig()
   }
 
   reconfig () {
-    /* this.dbx = new Dropbox({
-      accessToken: this.authToken,
-      clientId: this.getAppKey(),
-      clientID: this.getAppKey()
-    }); */
-
-    // console.log('reconfig', this)
-
+    // console.log('reconfig dropbox', this.authToken)
     this.dbx.setAccessToken(this.authToken)
+  }
 
+  /**
+   * @returns promise that is resolved when dropbox is ready to use
+   */
+  load () {
+    return this.loadedPromise
   }
 
   // returns promise
@@ -57,32 +59,42 @@ class DropboxStorage {
     return false
   }
 
-  getAuthToken (callback) {
-    db.options.where('key').equals('dropboxAuthToken').first().then((val) => {
-      //console.log('getAuthToken returned', val)
+  /**
+   * Get auth token from options table
+   * @TODO: convert to return promise instead of using callback
+   *
+   * @param callback
+   */
+  getAuthToken () {
+    return db.options.where('key').equals('dropboxAuthToken').first().then((val) => {
+      // console.log('getAuthToken returned', val)
 
       if (val) {
         this.authToken = val.value
-
       }
 
-      if (callback) {
-        callback()
-      }
+      return val.value
     }).catch((err) => {
       console.log('getAuthToken catch', err)
     })
-
-    // var val = yield db.options.where('key').equals('dropboxAuthToken').first();
-    // console.log('getAuthToken returned from yield', val)
-
-    // return token
   }
 
   getFolderList (path = '') {
-    return this.dbx.filesListFolder({path: path})
+    return this.dbx.filesListFolder({
+      path: path
+    })
   }
 
+  /**
+   * Get notes list from the notes folder
+   */
+  getNotesList (path) {
+    return this.dbx.filesListFolder({
+      path: path
+    })
+  }
+
+  /*
   getNotesFolder (callback) {
     db.options.where('key').equals('dropboxNotesFolder').first().then((val) => {
       // console.log('getNotesFolder returned', val)
@@ -98,6 +110,7 @@ class DropboxStorage {
       console.log('dropboxNotesFolderChanged catch', err)
     })
   }
+  */
 
 } // dropboxstorage
 

@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    // appBootDone: null,
     appTitle: 'Rocket 🚀 Notes ',
     options: {
       dropboxAuthToken: null,

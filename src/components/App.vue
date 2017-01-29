@@ -106,18 +106,22 @@
 
 import _ from 'lodash'
 import db from '../db.js'
+import DropboxStorage from '../dropboxstorage.js'
 import Sidebar from '../components/Sidebar.vue'
 import Mixins from '../mixins.js'
 
 export default {
   name: 'app_vue',
   mixins: [Mixins],
-  mounted () {
+  beforeMount () {
     this.boot()
+  },
+  mounted () {
+    this.addListeners()
   },
   data () {
     return {
-      //appTitle: this.$store.state.appTitle
+      // appTitle: this.$store.state.appTitle
     }
   },
   computed: {
@@ -141,49 +145,57 @@ export default {
   },
   methods: {
     // when app is mounted we boot by loading options and notes from db
+    // @TODO: return promise so we can call boot()->then(...) 
     boot () {
-      this.$store.dispatch({
+
+      let bootPromise = this.$store.dispatch({
         type: 'loadOptionsFromDB'
       }).then(() => {
         // load notes
-        this.$store.dispatch({
+        return this.$store.dispatch({
           type: 'loadNotesFromDB'
-        }).then(() => {
-          // console.log('app boot done')
         })
+      }).then(() => {
+        // load dropbox
+        return DropboxStorage.load()
+      }).then(() => {
+        console.log('boot done')
       })
 
+      this.$store.state.appBootPromise = bootPromise
+
+    }, // boot
+    addListeners () {
       // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
-      window.addEventListener('keydown', (event) => {
-        // console.log(event)
-        // If down arrow was pressed or CMD + L = focus search input
-        if (event.key == 'Escape' || (event.metaKey && event.key === 'l')) {
-          this.focusSearch()
-          this.openDrawerIfClosed()
-          event.preventDefault()
-        }
+      window.addEventListener('keydown', this.onKeydown, false)
+    },
+    onKeydown (event) {
+      // console.log(event)
+      // If down arrow was pressed or CMD + L = focus search input
+      if (event.key == 'Escape' || (event.metaKey && event.key === 'l')) {
+        this.focusSearch()
+        this.openDrawerIfClosed()
+        event.preventDefault()
+      }
 
-        // If CMD + delete = delete note
-        if (event.key == 'Backspace' && event.metaKey) {
-          this.deleteNote()
-          event.preventDefault()
-        }
+      // If CMD + delete = delete note
+      if (event.key == 'Backspace' && event.metaKey) {
+        this.deleteNote()
+        event.preventDefault()
+      }
 
-        // If CMD + C (not CMD + N because browser intercepts that combo) = new note
-        /*
-        if (event.key == 'C' && event.metaKey) {
-          this.addNewNote('New note from keyboard')
-          event.preventDefault()
-        }
-        */
+      // If CMD + C (not CMD + N because browser intercepts that combo) = new note
+      /*
+      if (event.key == 'C' && event.metaKey) {
+        this.addNewNote('New note from keyboard')
+        event.preventDefault()
+      }
+      */
 
-        // If CMD + j/k = maybe move next/prev note
-        if (event.metaKey && (event.key == 'j' || event.key == 'k')) {
-          this.$root.$emit('NotelistMaybeKeyboardNavNotes', event)
-        }
-
-      }, false); // add keyboard listeners
-
+      // If CMD + j/k = maybe move next/prev note
+      if (event.metaKey && (event.key == 'j' || event.key == 'k')) {
+        this.$root.$emit('NotelistMaybeKeyboardNavNotes', event)
+      }
     },
     noteNameUpdated: _.debounce (function(e) {
 
@@ -213,7 +225,7 @@ export default {
         // console.log('name updated')
       })
 
-    }, 250),
+    }, 250),// note name updated
     moveFocusToEdit () {
       this.focusEditTextArea();
     }

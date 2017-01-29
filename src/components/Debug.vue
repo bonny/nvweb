@@ -9,14 +9,9 @@
       <h4>Options</h4>
       <pre>{{ JSON.stringify(options, null, '  ') }}</pre>
 
-      <h4>Mixins test</h4>
-      <p>{{mixinTest()}}</p>
-
       <h4>Notes</h4>
 
-      <p>{{notes.length}} notes</p>
-
-      <NotesList></NotesList>
+      <p>{{notes.length}} notes in db</p>
 
     </div>
 
@@ -44,6 +39,22 @@ export default {
   },
   components: {
     NotesList
+  },
+  methods: {
+    getNotes() {
+      console.log('getNotes')
+    }
+  },
+  mounted () {
+    /*DropboxStorage.load().then(() => {
+      console.log('debug mounted, on dropbox loaded')
+    })*/
+    /*window.nvwebBootDone.then(() => {
+      console.log('debug mounted, nvwebBootDone')
+    })*/
+    this.$store.state.appBootPromise.then(() => {
+      console.log('debug mounted, nvwebBootDone')
+    })
   }
 }
 

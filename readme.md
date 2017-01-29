@@ -26,17 +26,16 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 	- when searching - de-select current note?
 	- create-message missing with current behavior
 
-- vid dropboxauth: måste ladda om för att token ska vara giltig/funka
-
-- search input always at top
-
-- no external js/css/fonts
-
 - sometimes create note does not work, desktop + shortcuts seems to be the combo
+
+- when switching note with cmd+j/k don't focus search, keep focus on list
+
+- vid dropboxauth: måste ladda om för att token ska vara giltig/funka
 
 - synka med dropbox
 
 - liten notify att den sparats lokalt + när till dropbox
+
 
 ### Later
 
