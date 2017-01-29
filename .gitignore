@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 .DS_Store
 /.tags
+/list_folder_example_result.json
+/list_files_continue_example_result.json
