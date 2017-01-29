@@ -58,6 +58,7 @@ export default {
     }
   },
   mounted () {
+    console.log('debug mounted')
     this.$store.state.appBootPromise.then(() => {
       console.log('debug mounted, nvwebBootDone')
       this.showSnackMessage('Getting list of all notes...')
@@ -70,7 +71,9 @@ export default {
         // add notes 
         //  - not available locally
         //  - available locally but with different rev
-        for (let i = this.dropboxFolderNotes.length; i >= 0; i--) {
+        console.log('length', this.dropboxFolderNotes.length)
+        for (let i = this.dropboxFolderNotes.length-1; i >= 0; i--) {
+          
           // this.dropboxFolderNotes.forEach(dropboxNote => {
           // console.log('note', dropboxNote)
           let dropboxNote = this.dropboxFolderNotes[i];
@@ -82,6 +85,7 @@ export default {
 
           if (noteIndex >= 0) {
             // note found, update
+            console.log("note found")
 
           } else {
             // note not found, add to local state
@@ -98,7 +102,7 @@ export default {
             this.$store.state.notes.unshift(newNote)
 
           }
-          console.log('noteIndex', noteIndex)
+          // console.log('noteIndex', noteIndex)
 
         }
 
@@ -106,7 +110,7 @@ export default {
 
       })
     })
-  },
+  }, // mounted
   data () {
     return {
       dropboxFolderNotes: []
