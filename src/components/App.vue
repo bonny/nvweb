@@ -28,6 +28,43 @@
 
 </style>
 
+<style>
+  /* Global styles */
+
+  /* For virtual scroller */
+  .virtual-scroller:not(.page-mode) {
+    overflow-y: auto;
+  }
+  
+  .item-container {
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .items {
+    width: 100%;
+  }
+  
+  .resize-observer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    pointer-events: none;
+    display: block;
+    overflow: hidden;
+  }
+
+  .test h1 {
+    color: #40b883;
+  }
+</style>
+
 <template>
 
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer

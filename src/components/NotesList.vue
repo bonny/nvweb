@@ -22,8 +22,9 @@
     /*max-width: calc(100% - 4em);*/
   }
 
-  .mdl-list--notes {
+  .mdl-list--notes ul.items {
     margin: 0;
+    padding: 0;
   }
 
   .mdl-list__item {
@@ -73,27 +74,37 @@
 
 <template>
 
-  <ul class="mdl-list mdl-list--notes">
+  <virtual-scroller
+    class="scroller mdl-list mdl-list--notes"
+    content-tag="ul"
+    :items="notes"
+    item-height="78"
+    page-mode
+  >
+    <template scope="props">
 
-    <li v-for="note in notes" class="mdl-list__item mdl-list__item--two-line"
-        v-bind:class="{ 'mdl-list__item--selected': note.id === $store.state.currentNote.id }"
-        v-on:click="editNote(note.id)"
-        v-on:keyup.enter="editNote(note.id)"
-        :data-noteID="note.id"
+      <li 
+        class="mdl-list__item mdl-list__item--two-line" 
+        :key="props.itemKey"
+        v-bind:class="{ 'mdl-list__item--selected': props.item.id === $store.state.currentNote.id }"
+        v-on:click="editNote(props.item.id)"
+        v-on:keyup.enter="editNote(props.item.id)"
+        :data-noteID="props.item.id"
         >
 
-      <span class="mdl-list__item-primary-content">
-        <span class="NoteList-noteName">{{note.name}}</span>
-        <span class="mdl-list__item-sub-title">{{note.text | trim}}</span>
-      </span>
+        <span class="mdl-list__item-primary-content">
+          <span class="NoteList-noteName">{{ props.item.name }}</span>
+          <span class="mdl-list__item-sub-title">{{ props.item.text | trim }}</span>
+        </span>
 
-      <span class="mdl-list__item-secondary-content">
-        <span class="mdl-list__item-secondary-info">{{ note.dateModified | moment('from') }}</span>
-      </span>
+        <span class="mdl-list__item-secondary-content">
+          <span class="mdl-list__item-secondary-info">{{ props.item.dateModified | moment('from') }}</span>
+        </span>
 
-    </li>
+      </li>
 
-  </ul>
+    </template>
+  </virtual-scroller>  
 
 </template>
 
@@ -174,6 +185,7 @@ export default {
   },
   methods: {
     editNote (noteID) {
+      console.log('edit note', noteID)
       // close drawer on small screens
       this.closeDrawerIfOpened()
 
