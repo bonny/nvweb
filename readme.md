@@ -20,6 +20,13 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 ### Soon
 
+- use virtual scroller, so lots of notes in drawer != slow, test virtual scroller https://github.com/Akryum/vue-virtual-scroller
+
+- sync with dropbox
+	- add notes when connected, load first time
+
+- liten notify att den sparats lokalt + när till dropbox
+
 - edit/search-behavior?
 	- if exact title match = edit note?
 	- if no exact match = create note?
@@ -31,10 +38,6 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 - when switching note with cmd+j/k don't focus search, keep focus on list
 
 - vid dropboxauth: måste ladda om för att token ska vara giltig/funka
-
-- synka med dropbox
-
-- liten notify att den sparats lokalt + när till dropbox
 
 
 ### Later
