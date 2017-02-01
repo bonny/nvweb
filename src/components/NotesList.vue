@@ -22,6 +22,11 @@
     /*max-width: calc(100% - 4em);*/
   }
 
+  .mdl-list--notes {
+    margin: 0;
+    padding: 0;
+  }
+
   .mdl-list--notes ul.items {
     margin: 0;
     padding: 0;

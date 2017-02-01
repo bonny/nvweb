@@ -38,7 +38,7 @@
     overflow: hidden;
   }
   .sidebarNotesList {
-    height: 100%;
+    height: calc(100% - 67px);
     overflow: scroll;
   }
 
