@@ -1,15 +1,18 @@
 
+// require('intersection-observer')
+
 import Vue from 'vue'
 import VueAnalytics, { loadScript } from 'vue-analytics'
 import appView from './components/App.vue'
 import store from './store.js'
-let router = require('./router.js')
-let vueMoment = require('vue-moment')
+import router from './router.js'
+import vueMoment from 'vue-moment'
+import VueObserveVisibility from 'vue-observe-visibility'
+import VueVirtualScroller from 'vue-virtual-scroller'
 
-// https://github.com/brockpetrie/vue-moment
+Vue.use(VueObserveVisibility)
+Vue.use(VueVirtualScroller)
 Vue.use(vueMoment)
-
-// https://github.com/MatteoGabriele/vue-analytics
 Vue.use(VueAnalytics, { router })
 
 loadScript('UA-181460-38')
