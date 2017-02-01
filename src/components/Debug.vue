@@ -9,21 +9,6 @@
       <h4>Options</h4>
       <pre>{{ JSON.stringify(options, null, '  ') }}</pre>
 
-      <h4>Notes</h4>
-
-      <p>{{notes.length}} notes in db</p>
-
-      <h4>Notes from dropbox folder</h4>
-      <p>{{dropboxFolderNotes.length}} notes</p>
-      <ul>
-        <li v-for="note in dropboxFolderNotes">
-          {{note.name}}
-          <br><small>modifed {{note.server_modified}} | {{note.size}} b</small>
-          <!-- <br>id {{note.id}}, rev {{note.rev}} -->
-          <!-- <br>.tag: {{note[".tag"]}} "file" -->
-        </li>
-      </ul>
-
     </div>
 
   </div>
@@ -61,6 +46,10 @@ export default {
     console.log('debug mounted')
     this.$store.state.appBootPromise.then(() => {
       console.log('debug mounted, nvwebBootDone')
+      
+      // tmp removed to test virtual scroll
+      // return;
+
       this.showSnackMessage('Getting list of all notes...')
       let x = DropboxStorage.getNotesList(this.$store.state.options.dropboxNotesFolderPath)
       x.then(notes => {
