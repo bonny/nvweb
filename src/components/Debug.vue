@@ -51,8 +51,9 @@ export default {
       // return;
 
       this.showSnackMessage('Getting list of all notes...')
-      let x = DropboxStorage.getNotesList(this.$store.state.options.dropboxNotesFolderPath)
-      x.then(notes => {
+      
+      DropboxStorage.getNotesList(this.$store.state.options.dropboxNotesFolderPath)
+      .then(notes => {
         console.log('notes from dropbox', notes)
         this.showSnackMessage(`Done! Got ${notes.entries.length} notes.`)
         this.dropboxFolderNotes = notes.entries
@@ -75,7 +76,6 @@ export default {
           if (noteIndex >= 0) {
             // note found, update
             console.log("note found")
-
           } else {
             // note not found, add to local state
             let newNote = {
@@ -89,16 +89,13 @@ export default {
             }
 
             this.$store.state.notes.unshift(newNote)
-
           }
-          // console.log('noteIndex', noteIndex)
 
-        }
+        } // for each note
 
-        console.log('after foreach')
+      }) // then
 
-      })
-    })
+    }) // boot then
   }, // mounted
   data () {
     return {
