@@ -40,6 +40,41 @@ export default {
   methods: {
     getNotes() {
       console.log('getNotes')
+    },
+    /**
+     * Find local note version, if any, of dropdox note
+     * find by dropboxId, an ID that does not change
+     * @return int index, -1 if not found
+     */
+    getNoteIndex(dropboxFileMetadata) {
+      let noteIndex = _.findIndex(this.$store.state.notes, localNote => {
+        if (!localNote.dropboxMeta || !localNote.dropboxMeta.dropboxId) {
+          return false;
+        }
+
+        return dropboxFileMetadata.id === localNote.dropboxMeta.dropboxId
+      })
+
+      return noteIndex
+    },
+    addOrUpdateNote(dropboxFileMetadata) {
+      let noteIndex = this.getNoteIndex(dropboxFileMetadata)
+
+      if (noteIndex >= 0) {
+        // note found, update
+        // console.log("note found")
+      } else {
+        // note not found, add to local state
+        // console.log('add note')
+        let newNote = {
+          name: dropboxFileMetadata.name,
+          dropboxMeta: dropboxFileMetadata,
+          text: null,
+          dateModified: new Date(dropboxFileMetadata.server_modified).getTime()
+        }
+
+        this.$store.state.notes.unshift(newNote)
+      }
     }
   },
   mounted () {
@@ -64,32 +99,9 @@ export default {
         console.log('length', this.dropboxFolderNotes.length)
         for (let i = this.dropboxFolderNotes.length-1; i >= 0; i--) {
           
-          // this.dropboxFolderNotes.forEach(dropboxNote => {
-          // console.log('note', dropboxNote)
-          let dropboxNote = this.dropboxFolderNotes[i];
+          let dropboxFileMetadata = this.dropboxFolderNotes[i]
 
-          // Find local note version, if any, of dropdox note
-          let noteIndex = _.findIndex(this.$store.state.notes, localNote => {
-            return dropboxNote.id === localNote.dropboxId
-          })
-
-          if (noteIndex >= 0) {
-            // note found, update
-            console.log("note found")
-          } else {
-            // note not found, add to local state
-            let newNote = {
-              name: dropboxNote.name,
-              dropboxId: dropboxNote.id,
-              dropboxServerModified: dropboxNote.server_modified,
-              dropboxRev: dropboxNote.rev,
-              dropboxPathLower: dropboxNote.path_lower,
-              text: null,
-              dateModified: new Date(dropboxNote.server_modified).getTime()
-            }
-
-            this.$store.state.notes.unshift(newNote)
-          }
+          this.addOrUpdateNote(dropboxFileMetadata)
 
         } // for each note
 
