@@ -18,12 +18,13 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 ## Todo
 
-### Soon
-
-- use virtual scroller, so lots of notes in drawer != slow, test virtual scroller https://github.com/Akryum/vue-virtual-scroller
+### Working on now
 
 - sync with dropbox
 	- add notes when connected, load first time
+
+### Soon
+
 
 - liten notify att den sparats lokalt + när till dropbox
 
@@ -42,7 +43,7 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 ### Later
 
-- Markdown: 
+- Markdown:
   https://www.npmjs.com/package/vue-markdown
 
 - https://markdown-it.github.io/
