@@ -48,64 +48,91 @@ export default {
      */
     getNoteIndex(dropboxFileMetadata) {
       let noteIndex = _.findIndex(this.$store.state.notes, localNote => {
-        if (!localNote.dropboxMeta || !localNote.dropboxMeta.dropboxId) {
+
+        if (!localNote.dropboxMeta || !localNote.dropboxMeta.id) {
           return false;
         }
 
-        return dropboxFileMetadata.id === localNote.dropboxMeta.dropboxId
+        return dropboxFileMetadata.id === localNote.dropboxMeta.id
       })
 
       return noteIndex
     },
+    /**
+     * Work queue of dropbox files meta data
+     * Add each note to local state + db
+     * or if note is exising then update note
+     */
     addOrUpdateNote(dropboxFileMetadata) {
       let noteIndex = this.getNoteIndex(dropboxFileMetadata)
+
+      // console.log('noteIndex', noteIndex)
 
       if (noteIndex >= 0) {
         // note found, update
         // console.log("note found")
+        //console.log('note found')
+        //failmucho()
       } else {
         // note not found, add to local state
-        // console.log('add note')
+        // console.log('note not found')
+        // failmucho()
+        this.addNewNoteFromDropbox(dropboxFileMetadata);
+      }
+    },
+    addNewNoteFromDropbox(dropboxFileMetadata) {
+      console.log('addNewNoteFromDropbox')
+
+        // Add to local state
         let newNote = {
           name: dropboxFileMetadata.name,
-          dropboxMeta: dropboxFileMetadata,
           text: null,
-          dateModified: new Date(dropboxFileMetadata.server_modified).getTime()
+          dateModified: new Date(dropboxFileMetadata.server_modified).getTime(),
+          dropboxMeta: dropboxFileMetadata
         }
 
         this.$store.state.notes.unshift(newNote)
-      }
+
+        // Add to db
+        db.notes.put(newNote).then((newNoteID) => {
+          console.log('note added to db from dropbox')
+        })
     }
   },
   mounted () {
     console.log('debug mounted')
     this.$store.state.appBootPromise.then(() => {
       console.log('debug mounted, nvwebBootDone')
-      
+
       // tmp removed to test virtual scroll
       // return;
+      if (!this.$store.state.options.dropboxAuthToken || !this.$store.state.options.dropboxNotesFolderPath) {
+        this.showSnackMessage('Dropbox setup not complete')
+        return
+      }
 
       this.showSnackMessage('Getting list of all notes...')
-      
+
       DropboxStorage.getNotesList(this.$store.state.options.dropboxNotesFolderPath)
       .then(notes => {
-        console.log('notes from dropbox', notes)
+        //console.log('notes from dropbox', notes)
         this.showSnackMessage(`Done! Got ${notes.entries.length} notes.`)
         this.dropboxFolderNotes = notes.entries
 
-        // add notes 
+        // add notes
         //  - not available locally
         //  - available locally but with different rev
         console.log('length', this.dropboxFolderNotes.length)
         for (let i = this.dropboxFolderNotes.length-1; i >= 0; i--) {
-          
           let dropboxFileMetadata = this.dropboxFolderNotes[i]
-
           this.addOrUpdateNote(dropboxFileMetadata)
-
         } // for each note
 
-      }) // then
+      })
+      .catch(e => {
+        console.log('getNotesList catch', e)
+        this.showSnackMessage(`Got error from Dropbox API: ${e.status}: ${e.error}`, 5000)
+      }) // getNotesList
 
     }) // boot then
   }, // mounted

@@ -68,13 +68,14 @@ class DropboxStorage {
    */
   getAuthToken () {
     return db.options.where('key').equals('dropboxAuthToken').first().then((val) => {
-      // console.log('getAuthToken returned', val)
+
+      console.log('getAuthToken returned', val)
 
       if (val) {
         this.authToken = val.value
+        return this.authToken
       }
 
-      return val.value
     }).catch((err) => {
       console.log('getAuthToken catch', err)
     })

@@ -136,10 +136,10 @@ var mixins = {
       // new name here we go
       // console.log('set new name to', newNoteName)
     },
-    showSnackMessage (message) {
+    showSnackMessage (message, timeout = 3000) {
       let data = {
         message,
-        timeout: 3000
+        timeout: timeout
       }
 
       let messageToastElm = document.getElementById('messageToast')
