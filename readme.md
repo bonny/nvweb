@@ -20,8 +20,8 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 ### Working on now
 
-- sync with dropbox
-	- add notes when connected, load first time
+- store cursor after getting all notes
+- download full note data from dropbox, for notes marked as to be downloaded
 
 ### Soon
 
