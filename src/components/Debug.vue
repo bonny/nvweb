@@ -47,6 +47,7 @@ export default {
      * @return int index, -1 if not found
      */
     getNoteIndex(dropboxFileMetadata) {
+
       let noteIndex = _.findIndex(this.$store.state.notes, localNote => {
 
         if (!localNote.dropboxMeta || !localNote.dropboxMeta.id) {
@@ -58,6 +59,10 @@ export default {
 
       return noteIndex
     },
+    getNoteByIndex(noteIndex) {
+      let note = this.$store.state.notes[noteIndex];
+      return note
+    },
     /**
      * Work queue of dropbox files meta data
      * Add each note to local state + db
@@ -65,7 +70,6 @@ export default {
      */
     addOrUpdateNote(dropboxFileMetadata) {
       let noteIndex = this.getNoteIndex(dropboxFileMetadata)
-
       // console.log('noteIndex', noteIndex)
 
       if (noteIndex >= 0) {
@@ -73,12 +77,31 @@ export default {
         // console.log("note found")
         //console.log('note found')
         //failmucho()
+
+        // Compare note REV to detect if note is changed
+
+        let localNote = this.getNoteByIndex(noteIndex)
+
+        // If .rev is different then a modified version of the note is on dropbox
+        if (dropboxFileMetadata.rev !== localNote.dropboxMeta.rev) {
+          this.markNoteToBeUpdatedFromDropbox(localNote, dropboxFileMetadata)
+        }
+
       } else {
         // note not found, add to local state
         // console.log('note not found')
         // failmucho()
         this.addNewNoteFromDropbox(dropboxFileMetadata);
       }
+    },
+    markNoteToBeUpdatedFromDropbox(localNote, dropboxFileMetadata) {
+      console.log('note rev is different, so mark note as to be updated')
+      console.log('dropboxFileMetadata.name', dropboxFileMetadata.name);
+      console.log('localNote.dropboxMeta.name', localNote.dropboxMeta.name);
+      // console.log('dropboxFileMetadata.rev', dropboxFileMetadata.rev);
+      // console.log('localNote.dropboxMeta.rev', localNote.dropboxMeta.rev);
+      console.log('dropboxFileMetadata.server_modified', dropboxFileMetadata.server_modified);
+      console.log('localNote.dropboxMeta.server_modified', localNote.dropboxMeta.server_modified);
     },
     addNewNoteFromDropbox(dropboxFileMetadata) {
       console.log('addNewNoteFromDropbox')
@@ -122,7 +145,7 @@ export default {
         // add notes
         //  - not available locally
         //  - available locally but with different rev
-        console.log('length', this.dropboxFolderNotes.length)
+        console.log('dropboxFolderNotes.length', this.dropboxFolderNotes.length)
         for (let i = this.dropboxFolderNotes.length-1; i >= 0; i--) {
           let dropboxFileMetadata = this.dropboxFolderNotes[i]
           this.addOrUpdateNote(dropboxFileMetadata)
