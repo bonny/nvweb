@@ -25,6 +25,7 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 ### Soon
 
+- load all options at boot, not one by one when needed
 
 - liten notify att den sparats lokalt + när till dropbox
 
