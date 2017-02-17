@@ -142,6 +142,8 @@ export default {
         this.showSnackMessage(`Done! Got ${notes.entries.length} notes.`)
         this.dropboxFolderNotes = notes.entries
 
+        this.$store.commit('setOption', { key: 'dropboxCursor', value: notes.cursor })
+
         // add notes
         //  - not available locally
         //  - available locally but with different rev

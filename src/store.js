@@ -13,7 +13,9 @@ const store = new Vuex.Store({
     appTitle: 'Rocket 🚀 Notes ',
     options: {
       dropboxAuthToken: null,
-      dropboxNotesFolderPath: null
+      dropboxNotesFolderPath: null,
+      // cursor: Pass the cursor into list_folder/continue to see what's changed in the folder since your previous query.
+      dropboxCursor: null
     },
     notes: [],
     // notes filtered by search
@@ -31,17 +33,23 @@ const store = new Vuex.Store({
       authUrl: null,
       user: null,
       isAuthed: false,
-      folders: null
+      folders: null,
     },
     currentNote: {
       // same params as every note
       id: null,
       name: null,
       text: null,
-      dateModified: null
+      dateModified: null,
+      dropboxMeta: {
+        // metadata
+      }
     }
   },
   mutations: {
+    setOption(state, payload) {
+      state.options[payload.key] = payload.value
+    },
     // payload values as array, can contain many options
     setOptions (state, payload) {
       payload.options.map((val) => {
