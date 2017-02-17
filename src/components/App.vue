@@ -21,7 +21,7 @@
   .mdl-textfield__label {
     color: rgba(255,255,255,.26);
   }
-  
+
   .mdl-textfield--titleWrap .mdl-textfield__label:after {
     background-color: rgba(255,255,255,.75);
   }
@@ -35,17 +35,17 @@
   .virtual-scroller:not(.page-mode) {
     overflow-y: auto;
   }
-  
+
   .item-container {
     box-sizing: border-box;
     width: 100%;
     overflow: hidden;
   }
-  
+
   .items {
     width: 100%;
   }
-  
+
   .resize-observer {
     position: absolute;
     top: 0;
@@ -76,15 +76,15 @@
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
 
-        <span 
-          v-if="!this.$store.state.currentNote.id" 
+        <span
+          v-if="!this.$store.state.currentNote.id"
           class="mdl-layout-title"></span>
 
-         <div v-mdl 
-              v-if="this.$store.state.currentNote.id" 
+         <div v-mdl
+              v-if="this.$store.state.currentNote.id"
               class="mdl-textfield mdl-js-textfield mdl-textfield--titleWrap"
               >
-           <input 
+           <input
             v-mdl
             type="text"
             class="mdl-textfield__input mdl-layout-title"
@@ -92,7 +92,7 @@
             v-on:keyup.enter="moveFocusToEdit"
             xv-model="this.$store.state.currentNote.name"
             @input="noteNameUpdated"
-            tabindex="2" 
+            tabindex="2"
             >
             <label class="mdl-textfield__label">Enter note name</label>
         </div>
@@ -162,7 +162,6 @@ export default {
     }
   },
   computed: {
-
     appTitle () {
       return this.$store.state.currentNote.name ? this.$store.state.currentNote.name : this.$store.state.appTitle
     },
@@ -175,16 +174,14 @@ export default {
     deleteDisabled () {
       return ! this.$store.state.currentNote.id
     }
-
   },
   components: {
     Sidebar
   },
   methods: {
     // when app is mounted we boot by loading options and notes from db
-    // @TODO: return promise so we can call boot()->then(...) 
+    // @TODO: return promise so we can call boot()->then(...)
     boot () {
-
       let bootPromise = this.$store.dispatch({
         type: 'loadOptionsFromDB'
       }).then(() => {
@@ -200,7 +197,6 @@ export default {
       })
 
       this.$store.state.appBootPromise = bootPromise
-
     }, // boot
     addListeners () {
       // can't use v-on:keydown.esc="focusSearch" because only catches key presses inside form elements
@@ -239,9 +235,9 @@ export default {
       let noteID = this.$store.state.currentNote.id
       let noteName = e.target.value
       let noteDateModified = Date.now()
-      
+
       this.$store.state.currentNote.name = noteName
-      
+
       // console.log('noteNameUpdated', noteName, noteID)
 
       db.notes.update(noteID, {
