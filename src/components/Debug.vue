@@ -127,8 +127,6 @@ export default {
     this.$store.state.appBootPromise.then(() => {
       console.log('debug mounted, nvwebBootDone')
 
-      // tmp removed to test virtual scroll
-      // return;
       if (!this.$store.state.options.dropboxAuthToken || !this.$store.state.options.dropboxNotesFolderPath) {
         this.showSnackMessage('Dropbox setup not complete')
         return
@@ -136,7 +134,10 @@ export default {
 
       this.showSnackMessage('Getting list of all notes...')
 
-      DropboxStorage.getNotesList(this.$store.state.options.dropboxNotesFolderPath)
+      // If cursor exist then use continue endpoint
+      //console.log('this.$store.state.options.dropboxCursor', this.$store.state.options.dropboxCursor)
+      //return
+      DropboxStorage.getNotesList(this.$store.state.options.dropboxNotesFolderPath, this.$store.state.options.dropboxCursor)
       .then(notes => {
         //console.log('notes from dropbox', notes)
         this.showSnackMessage(`Done! Got ${notes.entries.length} notes.`)

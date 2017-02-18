@@ -95,10 +95,12 @@ class DropboxStorage {
    * we also get cursor
    * how/when use this?
    */
-  getNotesList (path) {
-    return this.dbx.filesListFolder({
-      path: path
-    }).then(FilesMetadata => {
+  getNotesList (path, cursor = null) {
+    let listArgs = { path }
+    let listArgsContinue = { cursor }
+    let FilesListFolderPromise = cursor ? this.dbx.filesListFolderContinue(listArgsContinue) : this.dbx.filesListFolder(listArgs)
+
+    FilesListFolderPromise.then(FilesMetadata => {
       // keep only .txt and .md
       FilesMetadata.entries = this.keepOnlyTextNotes(FilesMetadata.entries)
 
@@ -107,6 +109,8 @@ class DropboxStorage {
 
       return FilesMetadata
     })
+
+    return FilesListFolderPromise
   }
 
   // keep only .txt and .md
