@@ -49,6 +49,12 @@ const store = new Vuex.Store({
   mutations: {
     setOption(state, payload) {
       state.options[payload.key] = payload.value
+
+      db.options.put({
+        key: payload.key,
+        value: payload.value
+      })
+
     },
     // payload values as array, can contain many options
     setOptions (state, payload) {
