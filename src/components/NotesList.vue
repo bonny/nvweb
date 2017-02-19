@@ -88,8 +88,8 @@
   >
     <template scope="props">
 
-      <li 
-        class="mdl-list__item mdl-list__item--two-line" 
+      <li
+        class="mdl-list__item mdl-list__item--two-line"
         :key="props.itemKey"
         v-bind:class="{ 'mdl-list__item--selected': props.item.id === $store.state.currentNote.id }"
         v-on:click="editNote(props.item.id)"
@@ -109,7 +109,7 @@
       </li>
 
     </template>
-  </virtual-scroller>  
+  </virtual-scroller>
 
 </template>
 
@@ -126,7 +126,7 @@ export default {
     notes () {
       let notes = this.$store.state.notes
       this.$store.state.filteredNotes = notes
-      // console.log('searchText', this.searchText)
+
       // this gets triggered even if search text input has not focus
       if (this.searchText) {
 
@@ -220,8 +220,6 @@ export default {
     },
     navNotesWithKeyboard (e) {
 
-      // console.log('navNotesWithKeyboard', e)
-
       let activeElm = document.querySelector('.mdl-list--notes .mdl-list__item--selected')
       let lis = document.querySelectorAll('.mdl-list--notes .mdl-list__item')
       let elmIndexToSelect;
@@ -246,8 +244,6 @@ export default {
         }
 
       }
-
-      // console.log('elmIndexToSelect', elmIndexToSelect)
 
       if (elmIndexToSelect !== undefined && elmIndexToSelect in lis) {
         document.querySelectorAll('.mdl-list--notes .mdl-list__item--selected').forEach((el) => {

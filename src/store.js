@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    debug: '',
     // appBootDone: null,
     appTitle: 'Rocket 🚀 Notes ',
     options: {
@@ -47,6 +48,9 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    log(state, what) {
+      state.debug += "\n" + what;
+    },
     setOption(state, payload) {
       state.options[payload.key] = payload.value
 

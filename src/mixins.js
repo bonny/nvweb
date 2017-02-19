@@ -5,6 +5,9 @@ var mixins = {
   created: function () {
   },
   methods: {
+    log (text) {
+      this.$store.commit('log', text)
+    },
     mixinTest: () => {
       return 'yes, this is mixinTest'
     },

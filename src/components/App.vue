@@ -193,7 +193,7 @@ export default {
         // load dropbox
         return DropboxStorage.load()
       }).then(() => {
-        console.log('boot done')
+        this.log('boot done')
       })
 
       this.$store.state.appBootPromise = bootPromise
@@ -203,7 +203,6 @@ export default {
       window.addEventListener('keydown', this.onKeydown, false)
     },
     onKeydown (event) {
-      // console.log(event)
       // If down arrow was pressed or CMD + L = focus search input
       if (event.key == 'Escape' || (event.metaKey && event.key === 'l')) {
         this.focusSearch()
@@ -238,13 +237,10 @@ export default {
 
       this.$store.state.currentNote.name = noteName
 
-      // console.log('noteNameUpdated', noteName, noteID)
-
       db.notes.update(noteID, {
         name: noteName,
         dateModified: noteDateModified
       }).then((numRowsUpdated) => {
-        // console.log('note updated, result was', numRowsUpdated)
         // update note in store
         return this.$store.commit({
           type: 'setSingleNote',
@@ -255,7 +251,7 @@ export default {
           }
         })
       }).then(() => {
-        // console.log('name updated')
+        // name updated
       })
 
     }, 250),// note name updated

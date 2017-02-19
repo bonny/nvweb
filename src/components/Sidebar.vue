@@ -59,7 +59,7 @@
           <input v-mdl class="mdl-textfield__input" type="search" id="sidebarSearch"
                  v-on:keyup.enter="editNote"
                  v-on:keyup="searchNotes"
-                 tabindex="1" 
+                 tabindex="1"
           >
           <label v-mdl class="mdl-textfield__label" for="sidebarSearch">Search or Create</label>
         </div>
@@ -110,13 +110,13 @@ export default {
   computed: {
     activateAddNewNote (e) {
       let selectedElm = document.querySelector('.mdl-list--notes .mdl-list__item--selected')
-      console.log('selectedElm', selectedElm)
-      console.log('this.$store.state.filteredNotes', this.$store.state.filteredNotes)
-      console.log('this.searchText', this.searchText)
+      // console.log('selectedElm', selectedElm)
+      // console.log('this.$store.state.filteredNotes', this.$store.state.filteredNotes)
+      // console.log('this.searchText', this.searchText)
       //if (!selectedElm) {
         //return true;
       //}
-      
+
       return ! this.$store.state.filteredNotes.length && this.searchText
     }
   },
@@ -136,7 +136,7 @@ export default {
 
       let selectedElm = document.querySelectorAll('.mdl-list__item--selected')
       let searchText = this.searchText.trim()
-      
+
       console.log('editNote', e, selectedElm, selectedElm.length)
 
       if (selectedElm.length) {

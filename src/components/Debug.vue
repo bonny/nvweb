@@ -6,6 +6,14 @@
 
       <h1>Debug</h1>
 
+      <button v-mdl class="mdl-button mdl-button--raised mdl-js-button" v-on:click="showNotesToBeUpdated()">Get list of notes to be updated</button>
+      <ul class="mdl-list">
+        <li v-for="note in notesToBeUpdated">{{note.name}}</li>
+      </ul>
+
+      <h4>Debug log</h4>
+      <textarea v-mdl v-model="this.$store.state.debug" class="mdl-textfield__input" rows="8"></textarea>
+
       <h4>Options</h4>
       <pre>{{ JSON.stringify(options, null, '  ') }}</pre>
 
@@ -38,8 +46,9 @@ export default {
     NotesList
   },
   methods: {
-    getNotes() {
-      console.log('getNotes')
+    showNotesToBeUpdated() {
+      this.notesToBeUpdated = _.filter(this.$store.state.notes, { 'updateFromDropboxNeeded': true })
+      console.log('this.notesToBeUpdated', this.notesToBeUpdated)
     },
     /**
      * Find local note version, if any, of dropdox note
@@ -47,7 +56,6 @@ export default {
      * @return int index, -1 if not found
      */
     getNoteIndex(dropboxFileMetadata) {
-
       let noteIndex = _.findIndex(this.$store.state.notes, localNote => {
 
         if (!localNote.dropboxMeta || !localNote.dropboxMeta.id) {
@@ -70,77 +78,82 @@ export default {
      */
     addOrUpdateNote(dropboxFileMetadata) {
       let noteIndex = this.getNoteIndex(dropboxFileMetadata)
-      // console.log('noteIndex', noteIndex)
 
       if (noteIndex >= 0) {
         // note found, update
-        // console.log("note found")
-        //console.log('note found')
-        //failmucho()
-
-        // Compare note REV to detect if note is changed
-
         let localNote = this.getNoteByIndex(noteIndex)
 
+        // Compare note REV to detect if note is changed
         // If .rev is different then a modified version of the note is on dropbox
         if (dropboxFileMetadata.rev !== localNote.dropboxMeta.rev) {
           this.markNoteToBeUpdatedFromDropbox(localNote, dropboxFileMetadata)
         }
 
       } else {
-        // note not found, add to local state
-        // console.log('note not found')
-        // failmucho()
+        // note not found, so add as new note
         this.addNewNoteFromDropbox(dropboxFileMetadata);
       }
     },
+    /**
+     * Set an existing note as in need to be updated from Dropbbox
+     * for example when note exists in result from FileListContinue
+     *
+     * @param localNote existing local note
+     * @param dropboxFileMetadata new metadata from Dropbox
+     */
     markNoteToBeUpdatedFromDropbox(localNote, dropboxFileMetadata) {
-      console.log('note rev is different, so mark note as to be updated')
-      console.log('dropboxFileMetadata.name', dropboxFileMetadata.name);
-      console.log('localNote.dropboxMeta.name', localNote.dropboxMeta.name);
-      // console.log('dropboxFileMetadata.rev', dropboxFileMetadata.rev);
-      // console.log('localNote.dropboxMeta.rev', localNote.dropboxMeta.rev);
-      console.log('dropboxFileMetadata.server_modified', dropboxFileMetadata.server_modified);
-      console.log('localNote.dropboxMeta.server_modified', localNote.dropboxMeta.server_modified);
+      this.log('note rev is different, so mark note as to be updated ' + dropboxFileMetadata.name + " " + localNote.dropboxMeta.name)
+      localNote.name = dropboxFileMetadata.name
+      localNote.dateModified = new Date(dropboxFileMetadata.server_modified).getTime()
+      localNote.dropboxMeta = dropboxFileMetadata
+      localNote.updateFromDropboxNeeded = true
     },
+    /**
+     * Add a new note that is found on Dropbox
+     * to local state + db
+     *
+     * @param dropboxFileMetadata
+     */
     addNewNoteFromDropbox(dropboxFileMetadata) {
-      console.log('addNewNoteFromDropbox')
+      this.log('addNewNoteFromDropbox, with name ' + dropboxFileMetadata.name)
 
-        // Add to local state
-        let newNote = {
-          name: dropboxFileMetadata.name,
-          text: null,
-          dateModified: new Date(dropboxFileMetadata.server_modified).getTime(),
-          dropboxMeta: dropboxFileMetadata
-        }
+      // Add to local state
+      let newNote = {
+        name: dropboxFileMetadata.name,
+        text: null,
+        dateModified: new Date(dropboxFileMetadata.server_modified).getTime(),
+        dropboxMeta: dropboxFileMetadata,
+        updateFromDropboxNeeded: true
+      }
 
-        this.$store.state.notes.unshift(newNote)
+      this.$store.state.notes.unshift(newNote)
 
-        // Add to db
-        db.notes.put(newNote).then((newNoteID) => {
-          console.log('note added to db from dropbox')
-        })
+      // Add to db
+      db.notes.put(newNote).then((newNoteID) => {
+
+      })
     }
   },
   mounted () {
-    console.log('debug mounted')
     this.$store.state.appBootPromise.then(() => {
-      console.log('debug mounted, nvwebBootDone')
+
+      this.log('debug mounted, nvwebBootDone')
 
       if (!this.$store.state.options.dropboxAuthToken || !this.$store.state.options.dropboxNotesFolderPath) {
         this.showSnackMessage('Dropbox setup not complete')
+        this.log('Dropbox setup not complete')
         return
       }
 
       this.showSnackMessage('Getting list of all notes...')
+      this.log('Getting list of all notes...')
 
-      // If cursor exist then use continue endpoint
-      //console.log('this.$store.state.options.dropboxCursor', this.$store.state.options.dropboxCursor)
-      //return
+      // Get list of notes
       DropboxStorage.getNotesList(this.$store.state.options.dropboxNotesFolderPath, this.$store.state.options.dropboxCursor)
       .then(notes => {
-        //console.log('notes from dropbox', notes)
         this.showSnackMessage(`Done! Got ${notes.entries.length} notes.`)
+        this.log(`Done! Got ${notes.entries.length} new or updated notes from Dropbox.`)
+
         this.dropboxFolderNotes = notes.entries
 
         this.$store.commit('setOption', { key: 'dropboxCursor', value: notes.cursor })
@@ -148,7 +161,6 @@ export default {
         // add notes
         //  - not available locally
         //  - available locally but with different rev
-        console.log('dropboxFolderNotes.length', this.dropboxFolderNotes.length)
         for (let i = this.dropboxFolderNotes.length-1; i >= 0; i--) {
           let dropboxFileMetadata = this.dropboxFolderNotes[i]
           this.addOrUpdateNote(dropboxFileMetadata)
@@ -156,7 +168,7 @@ export default {
 
       })
       .catch(e => {
-        console.log('getNotesList catch', e)
+        this.log('getNotesList catch error' + JSON.stringify(e))
         this.showSnackMessage(`Got error from Dropbox API: ${e.status}: ${e.error}`, 5000)
       }) // getNotesList
 
@@ -164,7 +176,8 @@ export default {
   }, // mounted
   data () {
     return {
-      dropboxFolderNotes: []
+      dropboxFolderNotes: [],
+      notesToBeUpdated: []
     }
   }
 }
