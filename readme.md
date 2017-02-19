@@ -16,16 +16,42 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskapism.se).
 
+## Note format
+
+```js
+	{
+		"name": "My note.txt",
+		"text": "Note text contents",
+		// milliseconds since jan 1 1970, (not "unixtime" because ms, not s)
+		"dateModified": 1487499066504,
+		"updateFromDropboxNeeded": false // true if need to download update
+		// FilesFileMetadata as described here http://dropbox.github.io/dropbox-sdk-js/global.html#FilesFileMetadata
+		"dropboxMeta": {
+			".tag": "file", // can also be 'deleted' or 'folder'
+			"client_modified": "2017-02-18T20:33:40Z",
+			"content_hash": "e3e2df7777f0b79490b4520d01febf2f081b29cff8544feefbe1b316b6aa3666",
+			"id": "id:UaOSTDaN5iwAAQ3PAADanW",
+			"name": "Note name.txt",
+			"path_display": "/notes/My note.txt",
+			"path_lower": "/notes/my note.txt",
+			"rev": "54675d7a000b0ef5",
+			"server_modified": "2017-02-18T20:33:45Z",
+			"size": 324
+		}
+    }
+```
+
 ## Todo
 
 ### Working on now
 
-- store cursor after getting all notes
+- mark notes to be downloaded
+- delete notes when .tag = "deleted"
 - download full note data from dropbox, for notes marked as to be downloaded
+- document note storage format
+
 
 ### Soon
-
-- load all options at boot, not one by one when needed
 
 - liten notify att den sparats lokalt + när till dropbox
 
