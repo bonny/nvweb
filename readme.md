@@ -20,7 +20,7 @@ The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskap
 
 Sure! Screenshot of the app/site/whatever-it-is:
 
-[screenshot](https://photos-6.dropbox.com/t/2/AABsdEO2Scwkx8n9MEvIKa6_ULNf7yNqb3660zVe0J2ltw/12/171101/png/32x32/1/_/1/2/nvweb%20screenshot.png/EIfq2d0CGCUgAigC/AveYhxDmpXNQp5NpVhLa6Bxd9E7b4V318gh8DK-UKu0?size=1280x960&size_mode=3)
+![Screenshot](https://www.dropbox.com/s/c9m88i1xoo4n62t/nvweb%20screenshot.png?raw=1)
 
 ## Note format
 
