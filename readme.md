@@ -16,6 +16,12 @@ Then goto [http://localhost:9966/](http://localhost:9966/) in your web browser.
 
 The app can be seen and tested online at [nvweb.eskapism.se](https://nvweb.eskapism.se).
 
+> Meh, I don't wanna need to click a link, can't you just show me what it looks like?
+
+Sure! Screenshot of the app/site/whatever-it-is:
+
+[screenshot](https://www.dropbox.com/s/c9m88i1xoo4n62t/nvweb%20screenshot.png?dl=0)
+
 ## Note format
 
 ```js
