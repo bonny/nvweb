@@ -111,7 +111,6 @@ export default {
       this.log('Mark note as updated "' + dropboxFileMetadata.name + '" » "' + localNote.dropboxMeta.name + '"')
 
       // Modify local note
-      console.log('localNote', localNote)
       localNote.name = dropboxFileMetadata.name
       localNote.dateModified = new Date(dropboxFileMetadata.server_modified).getTime()
       localNote.dropboxMeta = dropboxFileMetadata
@@ -125,7 +124,6 @@ export default {
         updateFromDropboxNeeded: localNote.updateFromDropboxNeeded
       }).then((numRowsUpdated) => {
         // note was updated
-        this.log('note updated')
       })
 
     },
