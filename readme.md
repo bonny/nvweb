@@ -26,6 +26,8 @@ Sure! Screenshot of the app/site/whatever-it-is:
 
 ```js
 	{
+		// note id in indexDB
+		"id": 123,
 		"name": "My note.txt",
 		"text": "Note text contents",
 		// milliseconds since jan 1 1970, (not "unixtime" because ms, not s)
@@ -51,11 +53,8 @@ Sure! Screenshot of the app/site/whatever-it-is:
 
 ### Working on now
 
-- mark notes to be downloaded
-- delete notes when .tag = "deleted"
 - download full note data from dropbox, for notes marked as to be downloaded
-- document note storage format
-
+- delete notes when .tag = "deleted"
 
 ### Soon
 
